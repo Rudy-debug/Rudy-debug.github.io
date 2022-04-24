@@ -2117,6 +2117,10 @@ pre code {
 .post-reward div span {
   display: block;
 }
+.post-reward div:hover span {
+  animation: next-roll 0.1s infinite linear;
+  pointer-events: none;
+}
 .post-reward img {
   display: inline-block;
   margin: 0.8em 2em 0;
@@ -2368,6 +2372,13 @@ ul.breadcrumb li:last-child {
 .tag-cloud-10 {
   border-bottom-color: #111;
   color: #111;
+}
+mjx-container[jax='CHTML'][display='true'],
+.has-jax {
+  overflow: auto hidden;
+}
+mjx-container[display='true'] + br {
+  display: none;
 }
 .use-motion .animated {
   animation-fill-mode: none;
