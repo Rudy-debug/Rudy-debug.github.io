@@ -131,12 +131,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -228,7 +228,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-24 15:46:04" itemprop="dateModified" datetime="2022-04-24T15:46:04+08:00">2022-04-24</time>
+      <time title="Modified: 2022-04-24 16:45:37" itemprop="dateModified" datetime="2022-04-24T16:45:37+08:00">2022-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/fvm/" itemprop="url" rel="index"><span itemprop="name">fvm</span></a>
+        </span>
     </span>
 
   
@@ -243,854 +252,14 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="vectors-and-vector-operations">Vectors and Vector
 Operations</h2>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{v}=u \mathbf{i}+v \mathbf{j}+w \mathbf{k}
-\label{eq1}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{v}=\left[\begin{array}{c}u \\ v \\ w\end{array}\right] \quad
-\mathbf{v}^{\mathrm{T}}=\left[\begin{array}{lll}u &amp; v &amp;
-w\end{array}\right]
-\label{eq2}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\|\mathbf{v}\|=\sqrt{\mathbf{v} \cdot
-\mathbf{v}}=\sqrt{u^{2}+v^{2}+w^{2}}
-\label{eq3}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\left.\begin{array}{l}\mathbf{v}_{1}=u_{1} \mathbf{i}+v_{1}
-\mathbf{j}+w_{1} \mathbf{k} \\ \mathbf{v}_{2}=u_{2} \mathbf{i}+v_{2}
-\mathbf{j}+w_{2} \mathbf{k}\end{array}\right\} \Rightarrow
-\mathbf{v}_{1}+\mathbf{v}_{2}=\left(u_{1}+u_{2}\right)
-\mathbf{i}+\left(v_{1}+v_{2}\right) \mathbf{j}+\left(w_{1}+w_{2}\right)
-\mathbf{k}
-\label{eq4}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{v}_{1}=\left[\begin{array}{c}u_{1} \\ v_{1} \\
-w_{1}\end{array}\right] \quad \mathbf{v}_{2}=\left[\begin{array}{l}u_{2}
-\\ v_{2} \\ w_{2}\end{array}\right] \Rightarrow
-\mathbf{v}_{1}+\mathbf{v}_{2}=\left[\begin{array}{c}u_{1}+u_{2} \\
-v_{1}+v_{2} \\ w_{1}+w_{2}\end{array}\right]
-\label{eq5}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-s \mathbf{v}=s(u \mathbf{i}+v \mathbf{j}+w \mathbf{k})=s u \mathbf{i}+s
-v \mathbf{j}+s w \mathbf{k}=\left[\begin{array}{c}s u \\ s v \\ s
-w\end{array}\right]
-\label{eq6}
-\end{equation}
-\]</span></p>
-<h3 id="the-dot-product-of-two-vectors">The Dot Product of Two
-Vectors</h3>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{v}_{1} \cdot
-\mathbf{v}_{2}=\left\|\mathbf{v}_{1}\right\|\left\|\mathbf{v}_{2}\right\|
-\cos \left(\mathbf{v}_{1}, \mathbf{v}_{2}\right)
-\label{eq7}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\mathbf{i} \cdot \mathbf{i}&amp;=\mathbf{j} \cdot \mathbf{j}=\mathbf{k}
-\cdot \mathbf{k}=1 \\
-\mathbf{i} \cdot \mathbf{j}=\mathbf{i} \cdot \mathbf{k}&amp;=\mathbf{j}
-\cdot \mathbf{i}=\mathbf{j} \cdot \mathbf{k}=\mathbf{k} \cdot
-\mathbf{i}=\mathbf{k} \cdot \mathbf{j}=0
-\end{aligned}
-\label{eq8}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{v}_{1} \cdot \mathbf{v}_{2}=\left(u_{1} \mathbf{i}+v_{1}
-\mathbf{j}+w_{1} \mathbf{k}\right) \cdot\left(u_{2} \mathbf{i}+v_{2}
-\mathbf{j}+w_{2} \mathbf{k}\right)=u_{1} u_{2}+v_{1} v_{2}+w_{1} w_{2}
-\label{eq9}
-\end{equation}
-\]</span></p>
-<h3 id="the-unit-direction-vector">The Unit Direction Vector</h3>
-<p><span class="math display">\[
-\begin{equation}
-\left.\begin{array}{l}\mathbf{v} \cdot
-\mathbf{v}=\|\mathbf{v}\|\|\mathbf{v}\| \overbrace{\cos (\mathbf{v},
-\mathbf{v})}^{=1}=\|\mathbf{v}\|^{2} \Rightarrow \mathbf{v} \cdot
-\frac{\mathbf{v}}{\|\mathbf{v}\|}=\|\mathbf{v}\| \\ \mathbf{v} \cdot
-\mathbf{e}_{\mathrm{v}}=\|\mathbf{v}\|
-\underbrace{\left\|\mathbf{e}_{\mathrm{v}}\right\|}_{=1}
-\underbrace{\cos \left(\mathbf{v},
-\mathbf{e}_{\mathrm{v}}\right)}_{=1}=\|\mathbf{v}\| \Rightarrow
-\mathbf{v} \cdot
-\mathbf{e}_{\mathrm{v}}=\|\mathbf{v}\|\end{array}\right\} \Rightarrow
-\mathbf{e}_{\mathrm{v}}=\frac{\mathbf{v}}{\|\mathbf{v}\|}
-\label{eq10}
-\end{equation}
-\]</span></p>
-<h3 id="the-cross-product-of-two-vectors">The Cross Product of Two
-Vectors</h3>
-<p><span class="math display">\[
-\begin{equation}
-\left\|\mathbf{v}_{3}\right\|=\left\|\mathbf{v}_{1} \times
-\mathbf{v}_{2}\right\|=\left\|\mathbf{v}_{1}\right\|\left\|\mathbf{v}_{2}\right\|
-\sin \left(\mathbf{v}_{1}, \mathbf{v}_{2}\right)
-\label{eq11}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\mathbf{i} \times \mathbf{i}=\mathbf{j} \times \mathbf{j}=\mathbf{k}
-\times \mathbf{k}=0 \\
-\mathbf{i} \times \mathbf{j}=\mathbf{k}=-\mathbf{j} \times \mathbf{i} \\
-\mathbf{j} \times \mathbf{k}=\mathbf{i}=-\mathbf{k} \times \mathbf{j} \\
-\mathbf{k} \times \mathbf{i}=\mathbf{j}=-\mathbf{i} \times \mathbf{k}
-\end{aligned}
-\label{eq12}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\mathbf{v}_{1} \times \mathbf{v}_{2}&amp;=\left(u_{1} \mathbf{i}+v_{1}
-\mathbf{j}+w_{1} \mathbf{k}\right) \times\left(u_{2} \mathbf{i}+v_{2}
-\mathbf{j}+w_{2} \mathbf{k}\right) \\
-&amp;=u_{1} u_{2} \mathbf{i} \times \mathbf{i}+u_{1} v_{2} \mathbf{i}
-\times \mathbf{j}+u_{1} w_{2} \mathbf{i} \times \mathbf{k} \\
-&amp;+v_{1} u_{2} \mathbf{j} \times \mathbf{i}+v_{1} v_{2} \mathbf{j}
-\times \mathbf{j}+v_{1} w_{2} \mathbf{j} \times \mathbf{k} \\
-&amp;+w_{1} u_{2} \mathbf{k} \times \mathbf{i}+w_{1} v_{2} \mathbf{k}
-\times \mathbf{j}+w_{1} w_{2} \mathbf{k} \times \mathbf{k} \\
-&amp;=u_{1} u_{2} 0+u_{1} v_{2} \mathbf{k}+u_{1} w_{2}(-\mathbf{j}) \\
-&amp;+v_{1} u_{2}(-\mathbf{k})+v_{1} v_{2} 0+v_{1} w_{2} \mathbf{i} \\
-&amp;+w_{1} u_{2} \mathbf{j}+w_{1} v_{2}(-\mathbf{i})+w_{1} w_{2} 0 \\
-&amp;=\left(v_{1} w_{2}-v_{2} w_{1}\right) \mathbf{i}-\left(u_{1}
-w_{2}-u_{2} w_{1}\right) \mathbf{j}+\left(u_{1} v_{2}-u_{2} v_{1}\right)
-\mathbf{k}
-\end{aligned}
-\label{eq13}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{v}_{1} \times \mathbf{v}_{2}=\left|\begin{array}{ccc}\mathbf{i}
-&amp; \mathbf{j} &amp; \mathbf{k} \\ u_{1} &amp; v_{1} &amp; w_{1} \\
-u_{2} &amp; v_{2} &amp;
-w_{2}\end{array}\right|=\left[\begin{array}{c}v_{1} w_{2}-v_{2} w_{1} \\
-u_{2} w_{1}-u_{1} w_{2} \\ u_{1} v_{2}-u_{2} v_{1}\end{array}\right]
-\label{eq14}
-\end{equation}
-\]</span></p>
-<h3 id="the-scalar-triple-product">The Scalar Triple Product</h3>
-<p><span class="math display">\[
-\begin{equation}
-\left(\mathbf{v}_{1} \cdot \left[\mathbf{v}_{2} \times
-\mathbf{v}_{3}\right]\right)=
-\left|\begin{array}{ccc}u_{1} &amp; v_{1} &amp; w_{1} \\ u_{2} &amp;
-v_{2} &amp; w_{2} \\ u_{3} &amp; v_{3} &amp; w_{3} \end{array}\right|
-\label{eq15}
-\end{equation}
-\]</span></p>
-<h3 id="gradient-of-a-scalar-and-directional-derivatives">Gradient of a
-Scalar and Directional Derivatives</h3>
-<p><span class="math display">\[
-\begin{equation}
-\nabla=\frac{\partial}{\partial x} \mathbf{i}+\frac{\partial}{\partial
-y} \mathbf{j}+\frac{\partial}{\partial z} \mathbf{k}
-\label{eq16}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla s=\frac{\partial s}{\partial x} \mathbf{i}+\frac{\partial
-s}{\partial y} \mathbf{j}+\frac{\partial s}{\partial z} \mathbf{k}
-\label{eq17}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\frac{d s}{d l}=\nabla s \cdot \mathbf{e}_{l}=\|\nabla s\| \cos
-\left(\nabla s, \mathbf{e}_{l}\right)
-\label{eq18}
-\end{equation}
-\]</span></p>
-<h3 id="operations-on-the-nabla-operator">Operations on the Nabla
-Operator</h3>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \cdot \mathbf{v}=\frac{\partial u}{\partial x}+\frac{\partial
-v}{\partial y}+\frac{\partial w}{\partial z}
-\label{eq19}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \cdot(\nabla s)=\nabla^{2} s=\frac{\partial^{2} s}{\partial
-x^{2}}+\frac{\partial^{2} s}{\partial y^{2}}+\frac{\partial^{2}
-s}{\partial z^{2}}
-\label{eq20}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla^{2} \mathbf{v}=\left(\nabla^{2} u\right)
-\mathbf{i}+\left(\nabla^{2} v\right) \mathbf{j}+\left(\nabla^{2}
-w\right) \mathbf{k}
-\label{eq21}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\nabla \times \mathbf{v}&amp;=\left(\frac{\partial}{\partial x}
-\mathbf{i}+\frac{\partial}{\partial y}
-\mathbf{j}+\frac{\partial}{\partial z} \mathbf{k}\right) \times(u
-\mathbf{i}+v \mathbf{j}+w \mathbf{k}) \\
-&amp;=\left|\begin{array}{ccc}\mathbf{i} &amp; \mathbf{j} &amp;
-\mathbf{k} \\ \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial
-y} &amp; \frac{\partial}{\partial z} \\ u &amp; v &amp;
-w\end{array}\right|=\left(\frac{\partial w}{\partial y}-\frac{\partial
-v}{\partial z}\right) \mathbf{i}+\left(\frac{\partial u}{\partial
-z}-\frac{\partial w}{\partial x}\right) \mathbf{j}+\left(\frac{\partial
-v}{\partial x}-\frac{\partial u}{\partial y}\right) \mathbf{k}
-\end{aligned}
-\label{eq22}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\left[(\mathbf{v} \cdot \nabla) \mathbf{v}\right]
-&amp;=(u \mathbf{i}+v \mathbf{j}+w \mathbf{k})
-\cdot\left(\frac{\partial}{\partial x}
-\mathbf{i}+\frac{\partial}{\partial y}
-\mathbf{j}+\frac{\partial}{\partial z} \mathbf{k}\right)(u \mathbf{i}+v
-\mathbf{j}+w \mathbf{k}) \\
-&amp;=\left(u \frac{\partial}{\partial x}+v \frac{\partial}{\partial
-y}+w \frac{\partial}{\partial z}\right)(u \mathbf{i}+v \mathbf{j}+w
-\mathbf{k}) \\
-&amp;=\left(u \frac{\partial u}{\partial x}+v \frac{\partial u}{\partial
-y}+w \frac{\partial u}{\partial z}\right) \mathbf{i} +\left(u
-\frac{\partial v}{\partial x}+v \frac{\partial v}{\partial y}+w
-\frac{\partial v}{\partial z}\right) \mathbf{j}
-\\
-&amp;+\left(u \frac{\partial w}{\partial x}+v \frac{\partial w}{\partial
-y}+w \frac{\partial w}{\partial z}\right) \mathbf{k}
-\end{aligned}
-\label{eq23}
-\end{equation}
-\]</span></p>
-<h3 id="additional-vector-operations">Additional Vector Operations</h3>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \cdot \left(\nabla \times \mathbf{v} \right)=0
-\label{eq24}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \times \left(\nabla s \right)=0
-\label{eq25}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \cdot \left(s \mathbf{v} \right)=s \nabla \cdot
-\mathbf{v}+\mathbf{v} \cdot \nabla s
-\label{eq26}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \times \left(s \mathbf{v} \right)=s \nabla \times
-\mathbf{v}+\nabla s \times \mathbf{v}
-\label{eq27}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla\left(\mathbf{v}_{1} \cdot \mathbf{v}_{2}\right)=\mathbf{v}_{1}
-\times\left(\nabla \times \mathbf{v}_{2}\right)+\mathbf{v}_{2}
-\times\left(\nabla \times \mathbf{v}_{1}\right)+\left(\mathbf{v}_{1}
-\cdot \nabla\right) \mathbf{v}_{2}+\left(\mathbf{v}_{2} \cdot
-\nabla\right) \mathbf{v}_{1}
-\label{eq28}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \cdot\left(\mathbf{v}_{1} \times
-\mathbf{v}_{2}\right)=\mathbf{v}_{2} \cdot\left(\nabla \times
-\mathbf{v}_{1}\right)-\mathbf{v}_{1} \cdot\left(\nabla \times
-\mathbf{v}_{2}\right)
-\label{eq29}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \times\left(\mathbf{v}_{1} \times
-\mathbf{v}_{2}\right)=\mathbf{v}_{1}\left(\nabla \cdot
-\mathbf{v}_{2}\right)-\mathbf{v}_{2}\left(\nabla \cdot
-\mathbf{v}_{1}\right)+\left(\mathbf{v}_{2} \cdot \nabla\right)
-\mathbf{v}_{1}-\left(\mathbf{v}_{1} \cdot \nabla\right) \mathbf{v}_{2}
-\label{eq30}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\nabla \times(\nabla \times \mathbf{v})=\nabla(\nabla \cdot
-\mathbf{v})-\nabla^{2} \mathbf{v}
-\label{eq31}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-(\nabla \times \mathbf{v}) \times \mathbf{v}=\mathbf{v} \cdot(\nabla
-\mathbf{v})-\nabla(\mathbf{v} \cdot \mathbf{v})
-\label{eq32}
-\end{equation}
-\]</span></p>
-<h2 id="matrices-and-matrix-operations">Matrices and Matrix
-Operations</h2>
-<p>A matrix <span class="math inline">\(\mathbf{A}\)</span> of order
-<span class="math inline">\(M \times N\)</span> is a rectangular array
-of quantities (<span class="math inline">\(M\)</span> rows and <span
-class="math inline">\(N\)</span> columns).An element of <span
-class="math inline">\(\mathbf{A}\)</span> located on the <span
-class="math inline">\(i\)</span>th row and <span
-class="math inline">\(j\)</span>th column is denoted by <span
-class="math inline">\(a_{i j}\)</span>.</p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A}=\left[a_{i j}\right] \Rightarrow
-\mathbf{A}^{\mathrm{T}}=\left[a_{j i}\right]
-\label{eq33}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A}=\left[a_{i j}\right] \Rightarrow s \mathbf{A}=\left[s a_{j
-i}\right]
-\label{eq34}
-\end{equation}
-\]</span></p>
-<p>To multiply two matrices <span class="math inline">\(\mathbf{A} (M
-\times N)\)</span> and <span class="math inline">\(\mathbf{B} (N \times
-M)\)</span>, the number of columns of <span
-class="math inline">\(\mathbf{A}\)</span> must be equal to the number of
-rows of <span class="math inline">\(\mathbf{B}\)</span>.</p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\mathbf{P}&amp;=\mathbf{A}\mathbf{B} \\
-p_{i j}&amp;=\sum_{k=1}^{N} a_{i k} b_{k j}
-\end{aligned}
-\label{eq35}
-\end{equation}
-\]</span></p>
-<h3 id="square-matrices">Square Matrices</h3>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A}^{k}=\underbrace{\mathbf{A} \times \mathbf{A} \times
-\mathbf{A} \ldots \times \mathbf{A}}_{k \text { times }}
-\label{eq36}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A}^{-1} \mathbf{A}=\mathbf{A} \mathbf{A}^{-1}=\mathbf{I}
-\label{eq37}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{U}=\left\{\begin{array}{cc}u_{i j} &amp; i \leq j \\ 0 &amp;
-i&gt;j\end{array}\right.
-\label{eq38}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{L}=\left\{\begin{array}{cc}\ell_{i j} &amp; i \geq j \\ 0 &amp;
-i&lt;j\end{array}\right.
-\label{eq39}
-\end{equation}
-\]</span></p>
-<h3 id="using-matrices-to-describe-systems-of-equations">Using Matrices
-to Describe Systems of Equations</h3>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-a_{11} &amp;\phi_{1}+a_{12} \phi_{2}+a_{13} \phi_{3}+\ldots+a_{1 N}
-\phi_{N}=b_{1} \\
-a_{21} &amp;\phi_{1}+a_{22} \phi_{2}+a_{23} \phi_{3}+\ldots+a_{2 N}
-\phi_{N}=b_{2} \\
-a_{31} &amp;\phi_{1}+a_{32} \phi_{2}+a_{33} \phi_{3}+\ldots+a_{3 N}
-\phi_{N}=b_{3} \\
-&amp;\vdots \quad \quad \quad \vdots \quad \quad \quad \vdots \quad
-\quad \quad \vdots \quad \quad \quad \vdots \quad \quad \quad \vdots \\
-a_{N1} &amp;\phi_{1}+a_{N2} \phi_{2}+a_{N3} \phi_{3}+\ldots+a_{N N}
-\phi_{N}=b_{N}
-\end{aligned}
-\label{eq40}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\left[\begin{array}{cccccc}a_{11} &amp; a_{12} &amp; a_{13} &amp; \cdots
-&amp; \cdots &amp; a_{1 N} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp;
-\cdots &amp; \cdots &amp; a_{2 N} \\ a_{31} &amp; a_{32} &amp; a_{33}
-&amp; \cdots &amp; \cdots &amp; a_{3 N} \\ \vdots &amp; \vdots &amp;
-\vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ \vdots &amp; \vdots
-&amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ a_{N 1} &amp;
-a_{N 2} &amp; a_{N 3} &amp; \cdots &amp; \cdots &amp; a_{N
-N}\end{array}\right]\left[\begin{array}{c}\phi_{1} \\ \phi_{2} \\
-\phi_{3} \\ \vdots \\ \vdots \\
-\phi_{N}\end{array}\right]=\left[\begin{array}{c}b_{1} \\ b_{2} \\ b_{3}
-\\ \vdots \\ \vdots \\ b_{N}\end{array}\right]
-\label{eq41}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A} \boldsymbol{\phi}=\mathbf{b}
-\label{eq42}
-\end{equation}
-\]</span></p>
-<h3 id="the-determinant-of-a-square-matrix">The Determinant of a Square
-Matrix</h3>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A}=\left[\begin{array}{ll}a_{11} &amp; a_{12} \\ a_{21} &amp;
-a_{22}\end{array}\right] \Rightarrow
-\operatorname{det}(\mathbf{A})=a_{11} a_{22}-a_{21} a_{12}
-\label{eq43}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-(c o)_{i j}=(-1)^{i+j}(m i)_{i j}
-\label{eq44}
-\end{equation}
-\]</span></p>
-<p>A minor <span class="math inline">\((m i)_{i j}\)</span> for an
-element <span class="math inline">\(a_{i j}\)</span> is the determinant
-that results when the <span class="math inline">\(i\)</span>th row and
-<span class="math inline">\(j\)</span>th column are deleted. The
-cofactor <span class="math inline">\((c o)_{i j}\)</span> of an element
-<span class="math inline">\(a_{i j}\)</span> is the value of the minor
-multiplied by either a positive or a negative sign depending on whether
-<span class="math inline">\((i+j)\)</span> is even or odd,
-respectively.</p>
-<p><span class="math display">\[
-\begin{equation}
-\operatorname{det}(\mathbf{A}) = \begin{cases}\sum_{i=1}^{N} a_{i j}(c
-o)_{i j} &amp; \text { for any } j \\ \text { or } \\ \sum_{j=1}^{N}
-a_{i j}(c o)_{i j} &amp; \text { for any } i\end{cases}
-\label{eq45}
-\end{equation}
-\]</span></p>
-<h3 id="eigenvectors-and-eigenvalues">Eigenvectors and Eigenvalues</h3>
-<p>In general the eigenvalues of a square matrix <span
-class="math inline">\(\mathbf{A}\)</span> of order <span
-class="math inline">\(N\)</span> are obtained from solving the following
-equation</p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A v}=\lambda \mathbf{v} \Rightarrow \mathbf{A}
-\mathbf{v}=\lambda \mathbf{I} \mathbf{v} \Rightarrow(\mathbf{A}-\lambda
-\mathbf{I}) \mathbf{v}=0
-\label{eq46}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A}-\lambda \mathbf{I}=0 \Rightarrow
-\operatorname{det}(\mathbf{A}-\lambda \mathbf{I})=0
-\label{eq47}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\operatorname{det}\left[\begin{array}{cccccc}a_{11}-\lambda &amp; a_{12}
-&amp; a_{13} &amp; \cdots &amp; \cdots &amp; a_{1 N} \\ a_{21} &amp;
-a_{22}-\lambda &amp; a_{23} &amp; \cdots &amp; \cdots &amp; a_{2 N} \\
-a_{31} &amp; a_{32} &amp; a_{33}-\lambda &amp; \cdots &amp; \cdots &amp;
-a_{3 N} \\ \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots
-&amp; \vdots \\ \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;
-\vdots &amp; \vdots \\ a_{N 1} &amp; a_{N 2} &amp; a_{N 3} &amp; \cdots
-&amp; \cdots &amp; a_{N N}-\lambda\end{array}\right]=0
-\label{eq48}
-\end{equation}
-\]</span></p>
-<h3 id="a-symmetric-positive-definite-matrix">A Symmetric
-Positive-Definite Matrix</h3>
-<p>A symmetric matrix <span
-class="math inline">\(\mathbf{A}=\left[a_{ij}\right]\)</span> of order
-<span class="math inline">\(N\)</span> is positive-definite if for all
-column vectors <span class="math inline">\(\mathbf{p}\)</span> in <span
-class="math inline">\(\mathbf{R}^N\)</span> the following inequality
-holds:</p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{p}^{\mathrm{T}}\mathbf{A}\mathbf{p}=0
-\label{eq49}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{A}=\left[\begin{array}{cccccc}a_{11} &amp; a_{12} &amp; a_{13}
-&amp; \cdots &amp; \cdots &amp; a_{1 N} \\ a_{21} &amp; a_{22} &amp;
-a_{23} &amp; \cdots &amp; \cdots &amp; a_{2 N} \\ a_{31} &amp; a_{32}
-&amp; a_{33} &amp; \cdots &amp; \cdots &amp; a_{3 N} \\ \vdots &amp;
-\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ \vdots
-&amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ a_{N
-1} &amp; a_{N 2} &amp; a_{N 3} &amp; \cdots &amp; \cdots &amp; a_{N
-N}\end{array}\right]
-\label{eq50}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbf{P}=\left[\begin{array}{cccc}a_{11} &amp; a_{12} &amp; \cdots
-&amp; a_{1 M} \\ a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2 M} \\
-\vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ a_{M 1} &amp; a_{M 2}
-&amp; \cdots &amp; a_{M M}\end{array}\right]
-\label{eq51}
-\end{equation}
-\]</span></p>
-<h3 id="additional-matrix-operations">Additional Matrix Operations</h3>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\mathbf{A}+(\mathbf{B}+\mathbf{C})
-&amp;=(\mathbf{A}+\mathbf{B})+\mathbf{C} \\
-\mathbf{A}+\mathbf{B} &amp;=\mathbf{B}+\mathbf{A} \\
-s_{1}(\mathbf{A}+\mathbf{B}) &amp;=s_{1} \mathbf{A}+s_{1} \mathbf{B} \\
-\left(s_{1}+s_{2}\right) \mathbf{A} &amp;=s_{1} \mathbf{A}+s_{2}
-\mathbf{A} \\
-\mathbf{A}(\mathbf{B C}) &amp;=(\mathbf{A} \mathbf{B}) \mathbf{C} \\
-\mathbf{A I} &amp;=\mathbf{I} \mathbf{A}=\mathbf{A} \\
-\mathbf{A}(\mathbf{B}+\mathbf{C}) &amp;=\mathbf{A} \mathbf{B}+\mathbf{A}
-\mathbf{C} \\
-(\mathbf{A}+\mathbf{B}) \mathbf{C} &amp;=\mathbf{A} \mathbf{C}+\mathbf{B
-C} \\
-(\mathbf{A}+\mathbf{B})^{\mathrm{T}}
-&amp;=\mathbf{A}^{\mathrm{T}}+\mathbf{B}^{\mathrm{T}} \\
-\left(s_{1} \mathbf{A}\right)^{\mathrm{T}} &amp;=s_{1}
-\mathbf{A}^{\mathrm{T}} \\
-(\mathbf{A B})^{\mathrm{T}} &amp;=\mathbf{B}^{\mathrm{T}}
-\mathbf{A}^{\mathrm{T}} \\
-(\mathbf{A B})^{-1} &amp;=\mathbf{B}^{-1} \mathbf{A}^{-1}
-\end{aligned}
-\label{eq52}
-\end{equation}
-\]</span></p>
-<h2 id="tensors-and-tensor-operations">Tensors and Tensor
-Operations</h2>
-<p><span class="math display">\[
-\begin{equation}
-\boldsymbol{\tau}=\left[\begin{array}{ccc}\tau_{x x} &amp; \tau_{x y}
-&amp; \tau_{x z} \\ \tau_{y x} &amp; \tau_{y y} &amp; \tau_{y z} \\
-\tau_{z x} &amp; \tau_{z y} &amp; \tau_{z z}\end{array}\right]
-\quad
-\boldsymbol{\tau}^{\mathrm{T}}=\left[\begin{array}{ccc}\tau_{x x} &amp;
-\tau_{y x} &amp; \tau_{z x} \\ \tau_{x y} &amp; \tau_{y y} &amp; \tau_{z
-y} \\ \tau_{x z} &amp; \tau_{y z} &amp; \tau_{z z}\end{array}\right]
-\label{eq53}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\boldsymbol{\tau}=\mathbf{i i} \tau_{x x}+\mathbf{i} \mathbf{j} \tau_{x
-y}+\mathbf{i} \mathbf{k} \tau_{x z}+\mathbf{j i} \tau_{y x}+\mathbf{j}
-\mathbf{j} \tau_{y y}+\mathbf{j} \mathbf{k} \tau_{y z}+\mathbf{k i}
-\tau_{z x}+\mathbf{k j} \tau_{z y}+\mathbf{k} \mathbf{k} \tau_{z z}
-\label{eq54}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\left.\begin{array}{rl}
-\{\mathbf{v v}\}= &amp; (u \mathbf{i}+v \mathbf{j}+w \mathbf{k})(u
-\mathbf{i}+v \mathbf{j}+w \mathbf{k}) \\
-= &amp; \mathbf{i} i u a+\mathbf{i j} u v+\mathbf{i} \mathbf{k} u w+ \\
-&amp; \mathbf{j i} v u+\mathbf{j} \mathbf{j} v v+\mathbf{j} \mathbf{k} v
-w+ \\
-&amp; \mathbf{k i} w u+\mathbf{k j} w v+\mathbf{k} \mathbf{k} w w
-\end{array}\right\} \Rightarrow\{\mathbf{v
-v}\}=\left[\begin{array}{ccc}u u &amp; u v &amp; u w \\ v u &amp; v v
-&amp; v w \\ w u &amp; w v &amp; w w\end{array}\right]
-\label{eq55}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\left.\begin{array}{rl}
-\{\nabla \mathbf{v}\}=&amp;\left(\frac{\partial}{\partial x}
-\mathbf{i}+\frac{\partial}{\partial y}
-\mathbf{j}+\frac{\partial}{\partial z} \mathbf{k}\right)(u \mathbf{i}+v
-\mathbf{j}+w \mathbf{k}) \\
-=&amp;\mathbf{i i} \frac{\partial u}{\partial x}+\mathbf{i j}
-\frac{\partial v}{\partial x}+\mathbf{i k} \frac{\partial w}{\partial
-x}+ \\
-&amp;\mathbf{j i} \frac{\partial u}{\partial y}+\mathbf{j} \mathbf{j}
-\frac{\partial v}{\partial y}+\mathbf{j k} \frac{\partial w}{\partial
-y}+ \\
-&amp;\mathbf{k i} \frac{\partial u}{\partial z}+\mathbf{k j}
-\frac{\partial v}{\partial z}+\mathbf{k k} \frac{\partial w}{\partial z}
-\end{array}\right\} \Rightarrow\{\nabla
-\mathbf{v}\}=\left[\begin{array}{ccc}
-\frac{\partial u}{\partial x} &amp; \frac{\partial v}{\partial x} &amp;
-\frac{\partial w}{\partial x} \\
-\frac{\partial u}{\partial y} &amp; \frac{\partial v}{\partial y} &amp;
-\frac{\partial w}{\partial y} \\
-\frac{\partial u}{\partial z} &amp; \frac{\partial v}{\partial z} &amp;
-\frac{\partial w}{\partial z}\end{array}\right]
-\label{eq56}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\boldsymbol{\Sigma}=\boldsymbol{\sigma}+\boldsymbol{\tau}=\left[\begin{array}{lll}\sigma_{x
-x}+\tau_{x x} &amp; \sigma_{x y}+\tau_{x y} &amp; \sigma_{x z}+\tau_{x
-z} \\ \sigma_{y x}+\tau_{y x} &amp; \sigma_{y y}+\tau_{y y} &amp;
-\sigma_{y z}+\tau_{y z} \\ \sigma_{z x}+\tau_{z x} &amp; \sigma_{z
-y}+\tau_{z y} &amp; \sigma_{z z}+\tau_{z z}\end{array}\right]
-\label{eq57}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\{s \boldsymbol{\tau}\}=\left[\begin{array}{ccc}s\tau_{x x} &amp;
-s\tau_{x y} &amp; s\tau_{x z} \\ s\tau_{y x} &amp; s\tau_{y y} &amp;
-s\tau_{y z} \\ s\tau_{z x} &amp; s\tau_{z y} &amp; s\tau_{z
-z}\end{array}\right]
-\label{eq58}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\left[\boldsymbol{\tau} \cdot \mathbf{v}\right]
-=&amp;\left(\begin{array}{l}\mathbf{i i} \tau_{x x}+\mathbf{i j} \tau_{x
-y}+\mathbf{i k} \tau_{x z}+\mathbf{j i} \tau_{y x}+ \\ \mathbf{j}
-\mathbf{j} \tau_{y y}+\mathbf{j} \mathbf{k} \tau_{y z}+\mathbf{k i}
-\tau_{z x}+\mathbf{k j} \tau_{z y}+\mathbf{k} \mathbf{k} \tau_{z
-z}\end{array}\right) \cdot(u \mathbf{i}+v \mathbf{j}+w \mathbf{k}) \\
-=&amp;\mathbf{ii} \cdot \mathbf{ii} \tau_{x x} u+\mathbf{ii} \cdot
-\mathbf{j} \tau_{x x} v+\mathbf{i} \cdot \mathbf{k} \tau_{x x}
-w+\mathbf{i j} \cdot \mathbf{i} \tau_{x y} u+\mathbf{i j} \cdot
-\mathbf{j} \tau_{x y} v \\
-&amp;+\mathbf{i j} \cdot \mathbf{k} \tau_{x y} w+\mathbf{i k} \cdot
-\mathbf{i} \tau_{x z} u+\mathbf{i} \mathbf{k} \cdot \mathbf{j} \tau_{x
-z} v+\mathbf{i k} \cdot \mathbf{k} \tau_{x z} w+\mathbf{j i} \cdot
-\mathbf{i} \tau_{y x} u \\
-&amp;+\mathbf{j i} \cdot \mathbf{j} \tau_{y x} v+\mathbf{j i} \cdot
-\mathbf{k} \tau_{y x} w+\mathbf{j j} \cdot \mathbf{i} \tau_{y y}
-u+\mathbf{j} \mathbf{j} \cdot \mathbf{j} \tau_{y y} v+\mathbf{j}
-\mathbf{j} \cdot \mathbf{k} \tau_{y y} w \\
-&amp;+\mathbf{j k} \cdot \mathbf{i} \tau_{y z} u+\mathbf{j k} \cdot
-\mathbf{j} \tau_{y z} v+\mathbf{j k} \cdot \mathbf{k} \tau_{y z}
-w+\mathbf{k i} \cdot \mathbf{i} \tau_{z x} u+\mathbf{k i} \cdot
-\mathbf{j} \tau_{z x} v \\
-&amp;+\mathbf{k i} \cdot \mathbf{k} \tau_{z x} w+\mathbf{k j} \cdot
-\mathbf{i} \tau_{z y} u+\mathbf{k j} \cdot \mathbf{j} \tau_{z y}
-v+\mathbf{k j} \cdot \mathbf{k} \tau_{z y} w+\mathbf{k k} \cdot
-\mathbf{i} \tau_{z z} u \\
-&amp;+\mathbf{k k} \cdot \mathbf{j} \tau_{z z} v+\mathbf{k k} \cdot
-\mathbf{k} \tau_{z z} w \\
-=&amp;\left(\tau_{x x} u+\tau_{x y} v+\tau_{x z}
-w\right)\mathbf{i}+\left(\tau_{y x} u+\tau_{y y} v+\tau_{y z}
-w\right)\mathbf{j}+\left(\tau_{z x} u+\tau_{z y} v+\tau_{z z}
-w\right)\mathbf{k} \\
-=&amp;\left[\begin{array}{ccc}\tau_{x x} &amp; \tau_{x y} &amp; \tau_{x
-z} \\ \tau_{y x} &amp; \tau_{y y} &amp; \tau_{y z} \\ \tau_{z x} &amp;
-\tau_{z y} &amp; \tau_{z z}\end{array}\right]\left[\begin{array}{c}u \\
-v \\ w\end{array}\right]=\left[\begin{array}{c}\tau_{x x}u + \tau_{x y}v
-+ \tau_{x z}w \\ \tau_{y x}u + \tau_{y y}v + \tau_{y z}w \\ \tau_{z x}u
-+ \tau_{z y}v + \tau_{z z}w\end{array}\right]
-\end{aligned}
-\label{eq59}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\left[\nabla \cdot \boldsymbol{\tau}\right]=&amp;\left(\frac{\partial
-\tau_{x x}}{\partial x}+\frac{\partial \tau_{y x}}{\partial
-y}+\frac{\partial \tau_{z x}}{\partial z}\right)
-\mathbf{i}+\left(\frac{\partial \tau_{x y}}{\partial x}+\frac{\partial
-\tau_{y y}}{\partial y}+\frac{\partial \tau_{z y}}{\partial z}\right)
-\mathbf{j} \\
-&amp;+\left(\frac{\partial \tau_{x z}}{\partial x}+\frac{\partial
-\tau_{y z}}{\partial y}+\frac{\partial \tau_{z z}}{\partial z}\right)
-\mathbf{k}
-\end{aligned}
-\label{eq60}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\mathbf{i j} \tau_{x y}: \mathbf{j i} \frac{\partial u}{\partial
-y}=&amp;\mathbf{i} \underbrace{\mathbf{j}: \mathbf{j}}_{=1} \mathbf{i}
-\tau_{x y} \frac{\partial u}{\partial y}=\underbrace{\mathbf{i} \cdot
-\mathbf{i}}_{=1} \tau_{x y} \frac{\partial u}{\partial y}=\tau_{x y}
-\frac{\partial u}{\partial y} \Rightarrow\\
-(\boldsymbol{\tau}: \nabla
-\mathbf{v})=&amp;\left(\begin{array}{l}\mathbf{i i} \tau_{x
-x}+\mathbf{i} \mathbf{j} \tau_{x y}+\mathbf{i} \mathbf{k} \tau_{x z}+ \\
-\mathbf{j i} \tau_{y x}+\mathbf{j} \tau_{y y}+\mathbf{j} \tau_{y z}+ \\
-\mathbf{k i} \tau_{z x}+\mathbf{k j} \tau_{z y}+\mathbf{k} \mathbf{k}
-\tau_{z z}\end{array}\right):\left(\begin{array}{l}\mathbf{i} \mathbf{i}
-\frac{\partial u}{\partial x}+\mathbf{i j} \frac{\partial v}{\partial
-x}+\mathbf{i} \mathbf{k} \frac{\partial w}{\partial x}+ \\ \mathbf{j i}
-\frac{\partial u}{\partial y}+\mathbf{j} \mathbf{j} \frac{\partial
-v}{\partial y}+\mathbf{j} \mathbf{k} \frac{\partial w}{\partial y}+ \\
-\mathbf{k i} \frac{\partial u}{\partial z}+\mathbf{k j} \frac{\partial
-v}{\partial z}+\mathbf{k k} \frac{\partial w}{\partial
-z}\end{array}\right) \\
-=&amp;\tau_{x x} \frac{\partial u}{\partial x}+\tau_{x y} \frac{\partial
-u}{\partial y}+\tau_{x z} \frac{\partial u}{\partial z}+\tau_{y x}
-\frac{\partial v}{\partial x} \\
-&amp;+\tau_{y y} \frac{\partial v}{\partial y}+\tau_{y z} \frac{\partial
-v}{\partial z}+\tau_{z x} \frac{\partial w}{\partial x}+\tau_{z y}
-\frac{\partial w}{\partial y}+\tau_{z z} \frac{\partial w}{\partial z}
-\end{aligned}
-\label{eq61}
-\end{equation}
-\]</span></p>
-<h2 id="fundamental-theorems-of-vector-calculus">Fundamental Theorems of
-Vector Calculus</h2>
-<h3 id="gradient-theorem-for-line-integrals">Gradient Theorem for Line
-Integrals</h3>
-<p>using <span class="math inline">\(\eqref{eq1}\)</span> and <span
-class="math inline">\(\eqref{eq17}\)</span>, the vector <span
-class="math inline">\(\mathbf{r}\left(t\right)=\mathbf{r}\left[x\left(t\right),y\left(t\right),z\left(t\right)\right]\)</span>
-for <span class="math inline">\(a &lt; b\)</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\int\limits_{C} \nabla s \cdot d \mathbf{r}
-=&amp;\int\limits_{C}\left(\frac{\partial s}{\partial x}
-\mathbf{i}+\frac{\partial s}{\partial y} \mathbf{j}+\frac{\partial
-s}{\partial z} \mathbf{k}\right) \cdot \left(dx\left(t\right)
-\mathbf{i}+dy\left(t\right) \mathbf{j}+dz\left(t\right)
-\mathbf{k}\right) \\
-=&amp;\int_{a}^{b}\frac{\partial s}{\partial
-x}dx\left(t\right)+\int_{a}^{b}\frac{\partial s}{\partial
-y}dy\left(t\right)+\int_{a}^{b}\frac{\partial s}{\partial
-z}dz\left(t\right)\\
-=&amp;s(r(b))-s(r(a))
-\end{aligned}
-\label{eq62}
-\end{equation}
-\]</span></p>
-<h3 id="greens-theorem">Green's Theorem</h3>
-<p>Green's theorem expresses the contour integral of a simple closed
-curve <span class="math inline">\(C\)</span> in terms of the double
-integral of the two dimensional region <span
-class="math inline">\(R\)</span> bounded by <span
-class="math inline">\(C\)</span>.</p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\oint\limits_{C}(udx+vdy)=\iint\limits_{R}\left(\frac{\partial
-v}{\partial x}-\frac{\partial u}{\partial y}\right) dxdy
-\end{aligned}
-\label{eq63}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\left.\begin{array}{l}
-d\mathbf{r}=d x \mathbf{i}+d y \mathbf{j} \\
-\mathbf{v}=u \mathbf{i}+v \mathbf{j} \\
-d\mathbf{S}=d x d y \mathbf{k} \\
-\end{array}\right\} \Rightarrow \\
-\oint\limits_{C} \mathbf{v} \cdot d
-\mathbf{r}=\iint\limits_{R}\left[\nabla \times \mathbf{v}\right] \cdot
-d\mathbf{S}
-\end{aligned}
-\label{eq64}
-\end{equation}
-\]</span></p>
-<h3 id="stokes-theorem">Stokes' Theorem</h3>
-<p>Stokes' theorem is a higher dimensional version of Green's
-theorem.</p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\int\limits_{S}[\nabla \times \mathbf{v}] \cdot d
-\mathbf{S}=\oint\limits_{C} \mathbf{v} \cdot d \mathbf{r}
-\end{aligned}
-\label{eq65}
-\end{equation}
-\]</span></p>
-<h3 id="divergence-theorem-gauss-theorem">Divergence Theorem (Gauss'
-theorem)</h3>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\int\limits_{V}\left(\nabla \cdot \mathbf{v}\right)
-dV&amp;=\oint\limits_{S} \mathbf{v} \cdot \mathbf{n} dS \\
-\int\limits_{V}\left[\nabla s\right] dV&amp;=\oint\limits_{S} s
-d\mathbf{S} \\
-\int\limits_{V}\left[\nabla \cdot \boldsymbol{\tau}\right]
-dV&amp;=\oint\limits_{S} \left[\boldsymbol{\tau} \cdot \mathbf{n}\right]
-dS
-\end{aligned}
-\label{eq66}
-\end{equation}
-\]</span></p>
-<h3 id="leibniz-integral-rule">Leibniz Integral Rule</h3>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\frac{d}{d t} \int_{a(t)}^{b(t)} \phi(x, t)
-dx=\underbrace{\int_{a(t)}^{b(t)} \frac{\partial \phi}{\partial t}
-dx}_{Term I}+\underbrace{\phi(b(t), t) \frac{\partial b}{\partial
-t}}_{\text {Term II}}-\underbrace{\phi(a(t), t) \frac{\partial
-a}{\partial t}}_{Term III}
-\end{aligned}
-\label{eq67}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\frac{d}{d t} \int\limits_{V(t)} \phi dV=\int\limits_{V(t)}
-\frac{\partial \phi}{\partial t} dV+\int\limits_{S(t)}
-\phi\left(\mathbf{v}_{s} \cdot \mathbf{n}\right) dS
-\end{aligned}
-\label{eq68}
-\end{equation}
-\]</span></p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-$\frac{d}{d t} \int\limits_{V} \phi d V=\int\limits_{V}^{\frac{\partial
-\phi}{\partial t} d V}$
-\end{aligned}
-\label{eq69}
-\end{equation}
-\]</span></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/21/formula/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1144,9 +313,15 @@ $\frac{d}{d t} \int\limits_{V} \phi d V=\int\limits_{V}^{\frac{\partial
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-04-14 19:20:38 / Modified: 20:07:18" itemprop="dateCreated datePublished" datetime="2022-04-14T19:20:38+08:00">2022-04-14</time>
+      <time title="Created: 2022-04-14 19:20:38" itemprop="dateCreated datePublished" datetime="2022-04-14T19:20:38+08:00">2022-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-24 16:43:41" itemprop="dateModified" datetime="2022-04-24T16:43:41+08:00">2022-04-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1220,7 +395,7 @@ $\frac{d}{d t} \int\limits_{V} \phi d V=\int\limits_{V}^{\frac{\partial
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/14/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+          <a href="/2022/04/14/hello-world/" class="post-title-link" itemprop="url">Hexo</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1233,6 +408,22 @@ $\frac{d}{d t} \int\limits_{V} \phi d V=\int\limits_{V}^{\frac{\partial
 
       <time title="Created: 2022-04-14 14:30:22" itemprop="dateCreated datePublished" datetime="2022-04-14T14:30:22+08:00">2022-04-14</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-24 16:44:20" itemprop="dateModified" datetime="2022-04-24T16:44:20+08:00">2022-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -1244,30 +435,16 @@ $\frac{d}{d t} \int\limits_{V} \phi d V=\int\limits_{V}^{\frac{\partial
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a
-target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a
-target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a
-target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>!</p>
+<h2 id="installation">Installation</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/14/hello-world/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
