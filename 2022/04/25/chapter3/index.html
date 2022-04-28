@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rudy-debug.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Eulerian and Lagrangian Description of Conservation Laws The conservation laws can be measured by either a Lagrangian (material volume, MV, \(\mathbf{x}\left(t,\mathbf{x}_{0}\right)\)) or an Euler">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mathematical Description of Physical Phenomena">
+<meta property="og:url" content="https://rudy-debug.github.io/2022/04/25/chapter3/index.html">
+<meta property="og:site_name" content="OpenFOAM之殇">
+<meta property="og:description" content="Eulerian and Lagrangian Description of Conservation Laws The conservation laws can be measured by either a Lagrangian (material volume, MV, \(\mathbf{x}\left(t,\mathbf{x}_{0}\right)\)) or an Euler">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-25T06:06:56.000Z">
+<meta property="article:modified_time" content="2022-04-28T00:55:30.531Z">
+<meta property="article:author" content="zsf">
+<meta property="article:tag" content="formula">
+<meta property="article:tag" content="fvm">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rudy-debug.github.io/2022/04/25/chapter3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://rudy-debug.github.io/2022/04/25/chapter3/","path":"2022/04/25/chapter3/","title":"Mathematical Description of Physical Phenomena"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Mathematical Description of Physical Phenomena | OpenFOAM之殇</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OpenFOAM之殇</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#eulerian-and-lagrangian-description-of-conservation-laws"><span class="nav-number">1.</span> <span class="nav-text">Eulerian
+and Lagrangian Description of Conservation Laws</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#substantial-versus-local-derivative"><span class="nav-number">1.1.</span> <span class="nav-text">Substantial Versus Local
+Derivative</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reynolds-transport-theorem"><span class="nav-number">1.2.</span> <span class="nav-text">Reynolds Transport Theorem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conservation-of-mass-continuity-equation"><span class="nav-number">2.</span> <span class="nav-text">Conservation of Mass
+(Continuity Equation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conservation-of-linear-momentum"><span class="nav-number">3.</span> <span class="nav-text">Conservation of Linear
+Momentum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#non-conservative-form"><span class="nav-number">3.1.</span> <span class="nav-text">Non-Conservative Form</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conservative-form"><span class="nav-number">3.2.</span> <span class="nav-text">Conservative Form</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#surface-forces"><span class="nav-number">3.3.</span> <span class="nav-text">Surface Forces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#body-forces"><span class="nav-number">3.4.</span> <span class="nav-text">Body Forces</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gravitational-forces"><span class="nav-number">3.4.1.</span> <span class="nav-text">Gravitational Forces</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#system-rotation"><span class="nav-number">3.4.2.</span> <span class="nav-text">System Rotation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stress-tensor-and-the-momentum-equation-for-newtonian-fluids"><span class="nav-number">3.5.</span> <span class="nav-text">Stress
+Tensor and the Momentum Equation for Newtonian Fluids</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conservation-of-energy"><span class="nav-number">4.</span> <span class="nav-text">Conservation of Energy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#conservation-of-energy-in-terms-of-specific-internal-energy"><span class="nav-number">4.1.</span> <span class="nav-text">Conservation
+of Energy in Terms of Specific Internal Energy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conservation-of-energy-in-terms-of-specific-enthalpy"><span class="nav-number">4.2.</span> <span class="nav-text">Conservation
+of Energy in Terms of Specific Enthalpy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conservation-of-energy-in-terms-of-specific-total-enthalpy"><span class="nav-number">4.3.</span> <span class="nav-text">Conservation
+of Energy in Terms of Specific Total Enthalpy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conservation-of-energy-in-terms-of-temperature"><span class="nav-number">4.4.</span> <span class="nav-text">Conservation of
+Energy in Terms of Temperature</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#general-conservation-equation"><span class="nav-number">5.</span> <span class="nav-text">General Conservation
+Equation</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zsf"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">zsf</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Rudy-debug" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Rudy-debug" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangsf19@gmail.com" title="E-Mail → mailto:zhangsf19@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://openfoamwiki.net/index.php/Main_Page" title="https:&#x2F;&#x2F;openfoamwiki.net&#x2F;index.php&#x2F;Main_Page" rel="noopener" target="_blank">OpenFOAM wiki</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rudy-debug.github.io/2022/04/25/chapter3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zsf">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OpenFOAM之殇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Mathematical Description of Physical Phenomena | OpenFOAM之殇">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mathematical Description of Physical Phenomena
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-04-25 14:06:56" itemprop="dateCreated datePublished" datetime="2022-04-25T14:06:56+08:00">2022-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-28 08:55:30" itemprop="dateModified" datetime="2022-04-28T08:55:30+08:00">2022-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/fvm/" itemprop="url" rel="index"><span itemprop="name">fvm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2
+id="eulerian-and-lagrangian-description-of-conservation-laws">Eulerian
+and Lagrangian Description of Conservation Laws</h2>
+<p>The conservation laws can be measured by either a Lagrangian
+(material volume, MV, <span
+class="math inline">\(\mathbf{x}\left(t,\mathbf{x}_{0}\right)\)</span>)
+or an Eulerian (control volume, <span
+class="math inline">\(\mathbf{v}\left(t,\mathbf{x}\right)\)</span>)
+approach.The two specifications are related by</p>
+<span id="more"></span>
+<p><span class="math display">\[
+\begin{equation}
+\mathbf{v}\left(t,\mathbf{x}\left(t,\mathbf{x}_{0}\right)\right)=\frac{\partial}{\partial
+t}\mathbf{x}\left(t,\mathbf{x}_{0}\right)
+\label{eq1}
+\end{equation}
+\]</span></p>
+<h3 id="substantial-versus-local-derivative">Substantial Versus Local
+Derivative</h3>
+<p>The derivative of a field variable <span
+class="math inline">\(\phi\left(t,\mathbf{x}\left(t\right)\right)\)</span>,
+which may be a <strong>scalar</strong> or a <strong>vector</strong>
+quantity. <span class="math inline">\(\frac{\partial \phi}{\partial
+t}\)</span> represents the Eulerian derivative, and</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{D \phi}{D t}=&amp;\frac{\partial \phi}{\partial t} \frac{d t}{d
+t}+\frac{\partial \phi}{\partial x} \underbrace{\frac{d x}{d
+t}}_{u}+\frac{\partial \phi}{\partial y} \underbrace{\frac{d y}{d
+t}}_{v}+\frac{\partial \phi}{\partial z} \underbrace{\frac{d z}{d
+t}}_{w} \\
+=&amp;\frac{\partial \phi}{\partial t}+u \frac{\partial \phi}{\partial
+x}+v \frac{\partial \phi}{\partial y}+w \frac{\partial \phi}{\partial z}
+\\
+=&amp;\underbrace{\frac{\partial \phi}{\partial
+t}}_{\begin{array}{l}local \quad rate \\ of \quad
+change\end{array}}+\underbrace{\mathbf{v} \cdot \nabla
+\phi}_{\begin{array}{l}convective \quad rate \\ of \quad
+change\end{array}}
+\end{aligned}
+\label{eq2}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{D \mathbf{v}}{D t}=\frac{\partial \mathbf{v}}{\partial
+t}+\mathbf{v} \cdot \nabla \mathbf{v}
+\label{eq3}
+\end{equation}
+\]</span></p>
+<p><strong>Note</strong>: <span class="math inline">\(\mathbf{v} \cdot
+\nabla \mathbf{v}=\left(\mathbf{v} \cdot \nabla\right)
+\mathbf{v}\)</span></p>
+<h3 id="reynolds-transport-theorem">Reynolds Transport Theorem</h3>
+<p>Let <span class="math inline">\(B\)</span> be any property of the
+fluid (mass, momentum, energy, etc.) and let <span
+class="math inline">\(b={dB}/{dm}\)</span> be the intensive value of
+<span class="math inline">\(B\)</span> (amount of <span
+class="math inline">\(B\)</span> per unit mass) in any small element of
+the fluid. The instantaneous total change of <span
+class="math inline">\(B\)</span> in the material volume (<span
+class="math inline">\(MV\)</span>, Lagrangian) is equal to the
+instantaneous total change of <span class="math inline">\(B\)</span>
+within the control volume (<span class="math inline">\(V\)</span>,
+Eulerian) plus the net flow of <span class="math inline">\(B\)</span>
+into and out of the control volume through its control surface (<span
+class="math inline">\(S\)</span>). The Reynolds transport theorem
+gives:</p>
+<p><span class="math display">\[
+\begin{equation}
+\left(\frac{d B}{d t}\right)_{M V}=\frac{d}{d t}\left(\int\limits_{V(t)}
+b \rho d V\right)+\int\limits_{S(t)} b \rho \mathbf{v}_{r} \cdot
+\mathbf{n} d S
+\label{eq4}
+\end{equation}
+\]</span></p>
+<p><strong>Note</strong>: for equation <span
+class="math inline">\(\eqref{eq4}\)</span>, the control volume is moving
+and deformable.</p>
+<p>where <span
+class="math inline">\(\mathbf{v}\left(t,\mathbf{x}\right)\)</span> the
+velocity of the fluid, <span
+class="math inline">\(\mathbf{v}_{s}\left(t,\mathbf{x}\right)\)</span>
+the velocity of the deforming control volume surface, and <span
+class="math inline">\(\mathbf{v}_{r}\left(t,\mathbf{x}\right)\)</span>
+the relative velocity by which the fluid enters/leaves the control
+volume [i.e., <span
+class="math inline">\(\mathbf{v}_{r}\left(t,\mathbf{x}\right)=\mathbf{v}\left(t,\mathbf{x}\right)-\mathbf{v}_{s}\left(t,\mathbf{x}\right)\)</span>]</p>
+<p>For a fixed control volume, <span
+class="math inline">\(\mathbf{v}_{s}=0\)</span>, and using Leibniz
+rule:</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{d}{d t}\left(\int\limits_{V} b \rho d V\right)=\int\limits_{V}
+\frac{\partial}{\partial t}(b \rho) d V
+\label{eq5}
+\end{equation}
+\]</span></p>
+<p>Then, <span class="math inline">\(\eqref{eq4}\)</span> simplifies
+to</p>
+<p><span class="math display">\[
+\begin{equation}
+\left(\frac{d B}{d t}\right)_{M V}=\int\limits_{V}
+\frac{\partial}{\partial t}(b \rho) d V+\int\limits_{S} b \rho
+\mathbf{v} \cdot \mathbf{n} d S
+\label{eq6}
+\end{equation}
+\]</span></p>
+<p>using the divergence theorem (Gauss' theorem)</p>
+<p><span class="math display">\[
+\begin{equation}
+\left(\frac{d B}{d t}\right)_{M
+V}=\int\limits_{V}\left[\frac{\partial}{\partial t}(\rho b)+\nabla
+\cdot(\rho \mathbf{v} b)\right] d V
+\label{eq7}
+\end{equation}
+\]</span></p>
+<p>using <span class="math inline">\(\eqref{eq2}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\left(\frac{d B}{d t}\right)_{M V}=\int\limits_{V}\left[\frac{D}{D
+t}(\rho b)+\rho b \nabla \cdot \mathbf{v}\right] d V
+\label{eq8}
+\end{equation}
+\]</span></p>
+<h2 id="conservation-of-mass-continuity-equation">Conservation of Mass
+(Continuity Equation)</h2>
+<p>In the absence of mass sources and sinks, for Lagrangian:</p>
+<p><span class="math display">\[
+\begin{equation}
+\left(\frac{d m}{d t}\right)_{M V} = 0
+\label{eq9}
+\end{equation}
+\]</span></p>
+<p>In this case, <span class="math inline">\(B=m\)</span> and <span
+class="math inline">\(b=1\)</span>, uing <span
+class="math inline">\(\eqref{eq8}\)</span>, for Eulerian</p>
+<p><span class="math display">\[
+\begin{equation}
+\int\limits_{V}\left[\frac{D \rho}{D t}+\rho \nabla \cdot
+\mathbf{v}\right] d V =0
+\label{eq10}
+\end{equation}
+\]</span></p>
+<p>the differential form of the mass conservation or continuity equation
+as following</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{D \rho}{D t}+\rho \nabla \cdot \mathbf{v} =0
+\label{eq11}
+\end{equation}
+\]</span></p>
+<p>the flux form, uing <span
+class="math inline">\(\eqref{eq7}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\int\limits_{V}\left(\frac{\partial \rho}{\partial t}+\nabla \cdot
+\left[\rho \mathbf{v}\right]\right) d V=0
+\label{eq12}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{\partial \rho}{\partial t}+\nabla \cdot \left[\rho
+\mathbf{v}\right]=0
+\label{eq13}
+\end{equation}
+\]</span></p>
+<p>for incompressible flow, <span
+class="math inline">\({D\rho}/{Dt}=0\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\nabla \cdot \mathbf{v}=0
+\label{eq14}
+\end{equation}
+\]</span></p>
+<p>using the divergence theorem (Gauss' theorem)</p>
+<p><span class="math display">\[
+\begin{equation}
+\int\limits_{S}\left(\mathbf{v} \cdot \mathbf{n}\right) d S=0
+\label{eq15}
+\end{equation}
+\]</span></p>
+<h2 id="conservation-of-linear-momentum">Conservation of Linear
+Momentum</h2>
+<p>Newton's law in Lagrangian coordinates can be written as</p>
+<p><span class="math display">\[
+\begin{equation}
+\left(\frac{d\left(m\mathbf{v}\right)}{dt}\right)_{MV}=\left(\int\limits_{V}\mathbf{f}dV\right)_{MV}
+\label{eq16}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\left(\int\limits_{V}\mathbf{f}dV\right)_{MV} =
+\int\limits_{V}\mathbf{f}dV
+\label{eq17}
+\end{equation}
+\]</span></p>
+<h3 id="non-conservative-form">Non-Conservative Form</h3>
+<p>In this case, <span class="math inline">\(B=m\mathbf{v}\)</span> and
+<span class="math inline">\(b=\mathbf{v}\)</span>, uing <span
+class="math inline">\(\eqref{eq8}\)</span>, for Eulerian</p>
+<p><span class="math display">\[
+\begin{equation}
+\int\limits_{V}\left[\frac{D}{D t}\left[\rho
+\mathbf{v}\right]+\left[\rho \mathbf{v} \nabla \cdot
+\mathbf{v}\right]-\mathbf{f}\right] d V=0
+\label{eq18}
+\end{equation}
+\]</span></p>
+<p>the differential form</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{D}{D t}\left[\rho \mathbf{v}\right]+\left[\rho \mathbf{v} \nabla
+\cdot \mathbf{v}\right]=\mathbf{f}
+\label{eq19}
+\end{equation}
+\]</span></p>
+<p>regrouping the <span class="math inline">\(\eqref{eq19}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{D}{D t}\left[\rho \mathbf{v}\right]+\left[\rho \mathbf{v} \nabla
+\cdot \mathbf{v}\right]=\mathbf{f} \Rightarrow \\
+\rho\frac{D\mathbf{v}}{D t}+\mathbf{v}\frac{D\rho}{D t}+\left[\rho
+\mathbf{v} \nabla \cdot \mathbf{v}\right]=\mathbf{f} \\
+\rho\frac{D\mathbf{v}}{D t}+\underbrace{\mathbf{v}\left(\frac{D\rho}{D
+t}+\rho \nabla \cdot \mathbf{v}\right)}_{Continuity}=\mathbf{f} \\
+\end{aligned}
+\label{eq20}
+\end{equation}
+\]</span></p>
+<p>In the absence of mass sources and sinks, <span
+class="math inline">\(\frac{D \rho}{D t}+\rho \nabla \cdot \mathbf{v}
+=0\)</span> <span class="math inline">\(\eqref{eq11}\)</span>, then</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\rho\frac{D\mathbf{v}}{D t}+\underbrace{\mathbf{v}\left(\frac{D\rho}{D
+t}+\rho \nabla \cdot \mathbf{v}\right)}_{Continuity}=\mathbf{f}
+\Rightarrow \\
+\rho\frac{D\mathbf{v}}{D t}=\mathbf{f} \Rightarrow \\
+\rho\left[\frac{\partial \mathbf{v}}{\partial t}+\mathbf{v} \cdot \nabla
+\mathbf{v}\right]=\mathbf{f}
+\end{aligned}
+\label{eq21}
+\end{equation}
+\]</span></p>
+<h3 id="conservative-form">Conservative Form</h3>
+<p>The conservative (or flux) version, uing <span
+class="math inline">\(\eqref{eq7}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\int\limits_{V}\left[\frac{\partial}{\partial t}\left[\rho
+\mathbf{v}\right]+\nabla \cdot\{\rho \mathbf{v}
+\mathbf{v}\}-\mathbf{f}\right] d V=0
+\label{eq22}
+\end{equation}
+\]</span></p>
+<p>the differential form</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\} =\mathbf{f}
+\label{eq23}
+\end{equation}
+\]</span></p>
+<p><strong>Note</strong>: <span class="math inline">\(\rho \mathbf{v}
+\mathbf{v}\)</span> is the <strong>dyadic product</strong>.</p>
+<p><span class="math display">\[
+\begin{equation}
+\mathbf{f}=\mathbf{f}_{s}+\mathbf{f}_{b}
+\label{eq24}
+\end{equation}
+\]</span></p>
+<p>where: <span class="math inline">\(\mathbf{f}_{s}\)</span> the
+surface forces, <span class="math inline">\(\mathbf{f}_{b}\)</span> the
+body forces</p>
+<h3 id="surface-forces">Surface Forces</h3>
+<p>the forces acting on its surface are due to pressure and viscous
+stresses</p>
+<p><span class="math display">\[
+\begin{equation}
+\boldsymbol{\Sigma}=\left(\begin{array}{ccc}\Sigma_{x x} &amp; \Sigma_{x
+y} &amp; \Sigma_{x z} \\ \Sigma_{y x} &amp; \Sigma_{y y} &amp; \Sigma_{y
+z} \\ \Sigma_{z x} &amp; \Sigma_{z y} &amp; \Sigma_{z
+z}\end{array}\right)
+\label{eq25}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\boldsymbol{\Sigma}=-\left(\begin{array}{ccc}p &amp; 0 &amp; 0 \\ 0
+&amp; p &amp; 0 \\ 0 &amp; 0 &amp; p\end{array}\right)+
+\left(\begin{array}{ccc}\overbrace{\Sigma_{x x+p}}^{\tau_{x x}} &amp;
+\tau_{x y} &amp; \tau_{x z} \\ \tau_{y x} &amp; \overbrace{\Sigma_{y
+y+p}}^{\tau_{y y}} &amp; \tau_{y z} \\ \tau_{z x} &amp; \tau_{z y}
+&amp;\overbrace{\Sigma_{z z+p}}^{\tau_{z
+z}}\end{array}\right)=-p\mathbf{I}+\boldsymbol{\tau}
+\label{eq26}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+p=-\frac{1}{3}\left(\Sigma_{x x}+\Sigma_{y y}+\Sigma_{z z}\right)
+\label{eq27}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\underbrace{\int\limits_{V} \mathbf{f}_{s} d V=\int\limits_{S}}_{surface
+\quad force} \mathbf{\Sigma} \cdot \mathbf{n}\underbrace{ d
+S=\int\limits_{V} \nabla \cdot \mathbf{\Sigma} d V}_{(Gauss&#39; \quad
+theorem)} \Rightarrow \mathbf{f}_{s}=[\nabla \cdot
+\mathbf{\Sigma}]=-\nabla p+[\nabla \cdot \boldsymbol{\tau}]
+\label{eq28}
+\end{equation}
+\]</span></p>
+<hr />
+<p><strong>Note</strong>: <span
+class="math inline">\(\mathbf{f}_{s}\)</span> has two forms. <span
+class="math inline">\(\mathbf{f}_{s}=[\nabla \cdot
+\mathbf{\Sigma}]\)</span> for <span
+class="math inline">\(\int\limits_{V} \mathbf{f}_{s} d V\)</span> ; and
+<span class="math inline">\(\mathbf{f}_{s}= \mathbf{\Sigma} \cdot
+d\mathbf{S}=\mathbf{\Sigma} \cdot \mathbf{n} dS\)</span> for <span
+class="math inline">\(\int\limits_{s} \mathbf{f}_{s} d S\)</span></p>
+<hr />
+<p><span class="math inline">\(\nabla \cdot \mathbf{\Sigma}=\nabla \cdot
+\left(-p\mathbf{I}+\boldsymbol{\tau}\right)=-\nabla
+\cdot\left(p\mathbf{I}\right)+\nabla \cdot \boldsymbol{\tau}=-\nabla
+p+\nabla \cdot \boldsymbol{\tau}\)</span></p>
+<p><span class="math inline">\(\begin{aligned}-\nabla
+\cdot\left(p\mathbf{I}\right)=&amp;-\left(\frac{\partial}{\partial x}
+\mathbf{i}+\frac{\partial}{\partial y}
+\mathbf{j}+\frac{\partial}{\partial z} \mathbf{k}\right) \cdot
+\left(\mathbf{i i} p+\mathbf{i j} 0+\mathbf{i k} 0+\mathbf{j i}
+0+\mathbf{j j} p+\mathbf{j k} 0+\mathbf{k i} 0+\mathbf{k j} 0+\mathbf{k
+k} p\right) \\ =&amp;- \frac{\partial p}{\partial x}
+\mathbf{i}+\frac{\partial p}{\partial y} \mathbf{j}+\frac{\partial
+p}{\partial z} \mathbf{k} \\ =&amp;-\nabla p \end{aligned}\)</span></p>
+<h3 id="body-forces">Body Forces</h3>
+<h4 id="gravitational-forces">Gravitational Forces</h4>
+<p><span class="math display">\[
+\begin{equation}
+\mathbf{f}_{b}=\rho \mathbf{g}
+\label{eq29}
+\end{equation}
+\]</span></p>
+<h4 id="system-rotation">System Rotation</h4>
+<p><span class="math display">\[
+\begin{equation}
+\mathbf{f}_{b}=\underbrace{-2 \rho[\boldsymbol{\varpi} \times
+\mathbf{v}]}_{\text {Coriolisforces
+}}-\underbrace{\rho[\boldsymbol{\varpi} \times[\boldsymbol{\varpi}
+\times \mathbf{r}]]}_{\text {Centrifugalforces }}
+\label{eq30}
+\end{equation}
+\]</span></p>
+<p><strong>The general conservative form of the momentum
+equation</strong></p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\} =-\nabla p+[\nabla \cdot
+\boldsymbol{\tau}]+\mathbf{f}_{b}
+\label{eq31}
+\end{equation}
+\]</span></p>
+<h3
+id="stress-tensor-and-the-momentum-equation-for-newtonian-fluids">Stress
+Tensor and the Momentum Equation for Newtonian Fluids</h3>
+<p>To proceed further with the momentum equation, the type of fluid
+should be known in order to relate the stress tensor <span
+class="math inline">\(\boldsymbol{\tau}\)</span> to the flow
+variables.</p>
+<p>For a <strong>Newtonian fluid</strong>, the stress tensor is a linear
+function of the strain rate</p>
+<p><span class="math display">\[
+\begin{equation}
+\boldsymbol{\tau}=\mu\{\nabla\mathbf{v}+\left(\nabla\mathbf{v}\right)^{\mathrm
+{T}}\}+\lambda\left(\nabla \cdot \mathbf{v}\right) \mathbf{I}
+\label{eq32}
+\end{equation}
+\]</span></p>
+<p>where <span class="math inline">\(\mu\)</span> is the molecular
+viscosity coefficient, and <span class="math inline">\(\lambda\)</span>
+represents the bulk viscosity coefficient which usually set equal to
+<span class="math inline">\(\lambda=-(2/3)\mu\)</span>.</p>
+<p><span class="math display">\[
+\begin{equation}
+\mathbf{I}=\left[\begin{array}{ccc}1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp;
+0 \\ 0 &amp; 0 &amp; 1\end{array}\right]
+\label{eq33}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\boldsymbol{\tau}=\left[\begin{array}{ccc}2 \mu \frac{\partial
+u}{\partial x}+\lambda \nabla \cdot \mathbf{v} &amp;
+\mu\left(\frac{\partial v}{\partial x}+\frac{\partial u}{\partial
+y}\right) &amp; \mu\left(\frac{\partial u}{\partial z}+\frac{\partial
+w}{\partial x}\right) \\ \mu\left(\frac{\partial v}{\partial
+x}+\frac{\partial u}{\partial y}\right) &amp; 2 \mu \frac{\partial
+v}{\partial y}+\lambda \nabla \cdot \mathbf{v} &amp;
+\mu\left(\frac{\partial w}{\partial y}+\frac{\partial v}{\partial
+z}\right) \\ \mu\left(\frac{\partial u}{\partial z}+\frac{\partial
+w}{\partial x}\right) &amp; \mu\left(\frac{\partial w}{\partial
+y}+\frac{\partial v}{\partial z}\right) &amp; 2 \mu \frac{\partial
+w}{\partial z}+\lambda \nabla \cdot \mathbf{v}\end{array}\right]
+\label{eq34}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\left[\nabla \cdot \boldsymbol{\tau}\right]=&amp;\nabla
+\cdot\{\mu\left(\nabla \mathbf{v}+(\nabla
+\mathbf{v})^{\mathrm{T}}\right)\}+\nabla(\lambda \nabla \cdot
+\mathbf{v})  \\
+=&amp;\left[\begin{array}{l}\frac{\partial}{\partial x}\left[2 \mu
+\frac{\partial u}{\partial x}+\lambda \nabla \cdot
+\mathbf{v}\right]+\frac{\partial}{\partial
+y}\left[\mu\left(\frac{\partial v}{\partial x}+\frac{\partial
+u}{\partial y}\right)\right]+\frac{\partial}{\partial
+z}\left[\mu\left(\frac{\partial u}{\partial z}+\frac{\partial
+w}{\partial x}\right)\right] \\ \left.\frac{\partial}{\partial
+x}\left[\frac{\partial v}{\partial x}+\frac{\partial u}{\partial
+y}\right)\right]+\frac{\partial}{\partial y}\left[2 \mu \frac{\partial
+v}{\partial y}+\lambda \nabla \cdot
+\mathbf{v}\right]+\frac{\partial}{\partial
+z}\left[\mu\left(\frac{\partial w}{\partial y}+\frac{\partial
+v}{\partial z}\right)\right] \\ \frac{\partial}{\partial
+x}\left[\mu\left(\frac{\partial u}{\partial z}+\frac{\partial
+w}{\partial x}\right)\right]+\frac{\partial}{\partial
+y}\left[\mu\left(\frac{\partial w}{\partial y}+\frac{\partial
+v}{\partial z}\right)\right]+\frac{\partial}{\partial z}\left[2 \mu
+\frac{\partial w}{\partial z}+\lambda \nabla \cdot
+\mathbf{v}\right]\end{array}\right]
+\end{aligned}
+\label{eq35}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(\nabla \cdot \left(\lambda\left(\nabla
+\cdot \mathbf{v}\right) \mathbf{I}\right)=\nabla \left(\lambda \nabla
+\cdot \mathbf{v}\right)\)</span>, proved by equation <span
+class="math inline">\(\eqref{eq28}\)</span></p>
+<p>Then,</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\} =-\nabla p+\nabla
+\cdot\{\mu\left[\nabla \mathbf{v}+\left(\nabla
+\mathbf{v}\right)^{\mathrm{T}}\right]\}+\nabla(\lambda \nabla \cdot
+\mathbf{v})+\mathbf{f}_{b}
+\end{aligned}
+\label{eq36}
+\end{equation}
+\]</span></p>
+<p>The expanded form</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\} =\nabla \cdot\{\mu \nabla
+\mathbf{v}\}-\nabla p+\underbrace{\nabla \cdot\{\mu \left(\nabla
+\mathbf{v}\right)^{\mathrm{T}}\}+\nabla(\lambda \nabla \cdot
+\mathbf{v})+\mathbf{f}_{b}}_{\mathbf{Q}^{\mathbf{v}}}
+\end{aligned}
+\label{eq37}
+\end{equation}
+\]</span></p>
+<p>rewritten</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\} =\nabla \cdot\{\mu \nabla
+\mathbf{v}\}-\nabla p+\mathbf{Q}^{\mathbf{v}}
+\end{aligned}
+\label{eq38}
+\end{equation}
+\]</span></p>
+<ul>
+<li>for incompressible flows, using <span
+class="math inline">\(\eqref{eq14}\)</span>, <span
+class="math inline">\(\nabla \cdot \mathbf{v}=0\)</span></li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\} =-\nabla p+\nabla
+\cdot\{\mu\left[\nabla \mathbf{v}+\left(\nabla
+\mathbf{v}\right)^{\mathrm{T}}\right]\}+\mathbf{f}_{b}
+\end{aligned}
+\label{eq39}
+\end{equation}
+\]</span></p>
+<ul>
+<li>If the viscosity is constant for incompressible flows</li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\mu \frac{\partial}{\partial x} &amp; {\left[2 \frac{\partial
+u}{\partial x}\right]+\mu \frac{\partial}{\partial
+y}\left[\left(\frac{\partial v}{\partial x}+\frac{\partial u}{\partial
+y}\right)\right]+\mu \frac{\partial}{\partial
+z}\left[\left(\frac{\partial u}{\partial z}+\frac{\partial w}{\partial
+x}\right)\right] } \\
+&amp;=\mu\left[\frac{\partial^{2} u}{\partial x^{2}}+\frac{\partial^{2}
+u}{\partial x^{2}}+\frac{\partial^{2} u}{\partial
+y^{2}}+\frac{\partial^{2} v}{\partial y x}+\frac{\partial^{2}
+u}{\partial z^{2}}+\frac{\partial^{2} w}{\partial z x}\right] \\
+&amp;=\mu\left[\left(\frac{\partial^{2} u}{\partial
+x^{2}}+\frac{\partial^{2} u}{\partial y^{2}}+\frac{\partial^{2}
+u}{\partial z^{2}}\right)+\frac{\partial^{2} u}{\partial
+x^{2}}+\frac{\partial^{2} v}{\partial y x}+\frac{\partial^{2}
+w}{\partial z x}\right] \\
+&amp;=\mu\left[\left(\frac{\partial^{2} u}{\partial
+x^{2}}+\frac{\partial^{2} u}{\partial y^{2}}+\frac{\partial^{2}
+u}{\partial z^{2}}\right)+\frac{\partial}{\partial
+x}\underbrace{\left(\frac{\partial u}{\partial x}+\frac{\partial
+v}{\partial y}+\frac{\partial w}{\partial z}\right)}_{=0 \quad for \quad
+incompressible }\right] \\
+&amp;=\mu\left(\frac{\partial^{2} u}{\partial x^{2}}+\frac{\partial^{2}
+u}{\partial y^{2}}+\frac{\partial^{2} u}{\partial z^{2}}\right)
+\end{aligned}
+\label{eq40}
+\end{equation}
+\]</span></p>
+<p>then,</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\} =-\nabla p+\mu\nabla^{2}
+\mathbf{v}+\mathbf{f}_{b}
+\end{aligned}
+\label{eq41}
+\end{equation}
+\]</span></p>
+<p>Note: assuming that there is no mass sources and sinks for equation
+<span class="math inline">\(\eqref{eq39}\)</span> and <span
+class="math inline">\(\eqref{eq41}\)</span></p>
+<ul>
+<li>for inviscid flows for incompressible and compressible</li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\} =-\nabla p+\mathbf{f}_{b}
+\end{aligned}
+\label{eq42}
+\end{equation}
+\]</span></p>
+<h2 id="conservation-of-energy">Conservation of Energy</h2>
+<p>Defining the total energy <span class="math inline">\(E\)</span> of
+the material volume at time <span class="math inline">\(t\)</span> as
+the sum of its internal and kinetic energies, then <span
+class="math inline">\(E\)</span> can be written as</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+E=m\left(\hat{u}+\frac{1}{2} \mathbf{v} \cdot \mathbf{v}\right)
+\end{aligned}
+\label{eq43}
+\end{equation}
+\]</span></p>
+<p>where <span class="math inline">\(\hat{u}\)</span> is the fluid
+specific internal energy (internal energy per unit mass).</p>
+<p>The first law of classical thermodynamics:</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\left(\frac{d E}{d t}\right)_{M V}=\dot{Q}-\dot{W}
+\end{aligned}
+\label{eq44}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+B=E \Rightarrow b=\frac{d E}{d m}=\hat{u}+\frac{1}{2} \mathbf{v} \cdot
+\mathbf{v}=e
+\end{aligned}
+\label{eq45}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\left(\frac{d E}{d t}\right)_{M
+V}=\dot{Q_V}+\dot{Q_S}-\dot{W_b}-\dot{W_S}
+\end{aligned}
+\label{eq46}
+\end{equation}
+\]</span></p>
+<p>where <span class="math inline">\(\dot{Q_{S}}\)</span> is the rate of
+heat transferred across the surface of the element and <span
+class="math inline">\(\dot{Q_{V}}\)</span> represents the
+generated/destroyed heat (e.g., due to a chemical reaction) within the
+material volume. <span class="math inline">\(\dot{W_{S}}\)</span> is the
+rate of work done by the surface forces and <span
+class="math inline">\(\dot{W_{b}}\)</span> represents the rate of work
+done by the body forces.</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\dot{W_b}=-\int\limits_{V} \left(\mathbf{f}_{b} \cdot \mathbf{v}
+\right)dV \\
+\dot{W_S}=-\int\limits_{S} \left(\mathbf{f}_{S} \cdot \mathbf{v}
+\right)dS \\
+\end{aligned}
+\label{eq47}
+\end{equation}
+\]</span></p>
+<p>replacing <span class="math inline">\(\mathbf{f}_{S}\)</span> by
+<span class="math inline">\(\mathbf{\Sigma} \cdot \mathbf{n} dS\)</span>
+using equation <span class="math inline">\(\eqref{eq28}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\dot{W_S}=&amp;-\int\limits_{S} \left(\mathbf{\Sigma} \cdot \mathbf{n}
+\cdot \mathbf{v} \right)dS=\underbrace{-\int\limits_{S}
+\left[\mathbf{\Sigma} \cdot \mathbf{v} \right]\cdot  \mathbf{n}
+dS=-\int\limits_{V} \nabla \cdot \left[\mathbf{\Sigma} \cdot
+\mathbf{v}\right]dV}_{Gauss&#39; \quad theorem} \\
+=&amp;-\int\limits_{V} \nabla \cdot
+\left[\left(-p\mathbf{I}+\boldsymbol{\tau} \right) \cdot
+\mathbf{v}\right]dV
+\end{aligned}
+\label{eq48}
+\end{equation}
+\]</span></p>
+<p>rewriting</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\dot{W_S}=&amp;-\int\limits_{V} \left(-\nabla \cdot \left[p \mathbf{I}
+\cdot \mathbf{v}\right]+\nabla \cdot \left[\boldsymbol{\tau} \cdot
+\mathbf{v}\right]\right)dV \\
+=&amp;-\int\limits_{V} \left(-\nabla \cdot \left[p
+\mathbf{v}\right]+\nabla \cdot \left[\boldsymbol{\tau} \cdot
+\mathbf{v}\right]\right)dV
+\end{aligned}
+\label{eq49}
+\end{equation}
+\]</span></p>
+<p>Note: <span class="math inline">\(\mathbf{I} \cdot \mathbf{v}=
+\mathbf{v}\)</span></p>
+<p>If <span class="math inline">\(\dot{q_V}\)</span> represents the rate
+of heat source or sink within the material volume per unit volume and
+<span class="math inline">\(\dot{q_s}\)</span> the rate of heat transfer
+per unit area across the surface area of the material element</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\dot{Q_V}=&amp;\int\limits_{V} \dot{q_V} dV \\
+\dot{Q_S}=&amp;\underbrace{-\int\limits_{S} \dot{q_s} \cdot \mathbf{n}
+dS =-\int\limits_{V}\nabla \cdot\dot{q_s}  dV}_{Gauss&#39; \quad
+theorem}
+\end{aligned}
+\label{eq50}
+\end{equation}
+\]</span></p>
+<p>using equation <span class="math inline">\(\eqref{eq7}\)</span> and
+<span class="math inline">\(\eqref{eq46}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\left(\frac{d E}{d t}\right)_{M
+V}=&amp;\int\limits_{V}\left[\frac{\partial}{\partial t}(\rho e)+\nabla
+\cdot(\rho \mathbf{v} e)\right] d V \\
+=&amp;-\int\limits_{V}\nabla \cdot\dot{q_s}  dV+\int\limits_{V}
+\dot{q_V} dV \\ &amp;+\int\limits_{V} \left(-\nabla \cdot \left[p
+\mathbf{v}\right]+\nabla \cdot \left[\boldsymbol{\tau} \cdot
+\mathbf{v}\right]\right)dV+\int\limits_{V} \left(\mathbf{f}_{b} \cdot
+\mathbf{v} \right)dV
+\end{aligned}
+\label{eq51}
+\end{equation}
+\]</span></p>
+<p>Collecting terms together</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{V}\left[\frac{\partial}{\partial t}(\rho e)+\nabla
+\cdot(\rho \mathbf{v} e) + \nabla \cdot\dot{q_s} +\nabla \cdot \left[p
+\mathbf{v}\right]-\nabla \cdot \left[\boldsymbol{\tau} \cdot
+\mathbf{v}\right]- \mathbf{f}_{b} \cdot \mathbf{v}-\dot{q_V}\right] d
+V=0
+\end{aligned}
+\label{eq52}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}(\rho e)+\nabla \cdot(\rho \mathbf{v} e) =-
+\nabla \cdot\dot{q_s} -\nabla \cdot \left[p \mathbf{v}\right]+\nabla
+\cdot \left[\boldsymbol{\tau} \cdot \mathbf{v}\right]+ \mathbf{f}_{b}
+\cdot \mathbf{v}+\dot{q_V}
+\end{aligned}
+\label{eq53}
+\end{equation}
+\]</span></p>
+<h3
+id="conservation-of-energy-in-terms-of-specific-internal-energy">Conservation
+of Energy in Terms of Specific Internal Energy</h3>
+<p>the dot product of the momentum equation <span
+class="math inline">\(\eqref{eq23}\)</span> with the velocity vector</p>
+<p><span class="math display">\[
+\begin{equation}
+\left[\frac{\partial}{\partial t}\left[\rho \mathbf{v}\right]+\nabla
+\cdot\{\rho \mathbf{v} \mathbf{v}\}\right] \cdot \mathbf{v} =\mathbf{f}
+\cdot \mathbf{v}
+\label{eq54}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(\begin{aligned}\left[ \nabla \cdot \{\rho
+\mathbf{v} \mathbf{v}\} \right] \cdot \mathbf{v} =&amp; \mathbf{v} \cdot
+\left[ \nabla \cdot \{\rho \mathbf{v} \mathbf{v}\} \right] = \nabla
+\cdot \left[\{\rho \mathbf{v} \mathbf{v}\} \cdot \mathbf{v}
+\right]-\{\rho \mathbf{v} \mathbf{v}\}:\nabla\mathbf{v}=\nabla \cdot
+\left[\{\rho \mathbf{v} \mathbf{v}\} \cdot \mathbf{v} \right]-\{\rho
+\mathbf{v} \mathbf{v}\} \cdot \nabla \cdot \mathbf{v} \\ =&amp;\nabla
+\cdot \{\rho \mathbf{v} \mathbf{v}\} \cdot \mathbf{v}-\rho \mathbf{v}
+\mathbf{v} \cdot \nabla \cdot \mathbf{v}=\nabla \cdot \{\rho \mathbf{v}
+\mathbf{v}\} \cdot \mathbf{v}-\rho \mathbf{v} \left(\mathbf{v} \cdot
+\nabla \right) \cdot \mathbf{v}\end{aligned}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{\partial}{\partial t}\left(\rho \mathbf{v} \cdot \mathbf{v}
+\right)-\rho \mathbf{v} \cdot \frac{\partial \mathbf{v}}{\partial
+t}+\nabla \cdot \left[\rho \left(\mathbf{v} \cdot
+\mathbf{v}\right)\mathbf{v}\right] -\rho\mathbf{v}
+\cdot\left[\left(\mathbf{v}\cdot\nabla \right) \mathbf{v}\right]
+=\mathbf{f} \cdot \mathbf{v}
+\label{eq55}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(\nabla \cdot \left[\boldsymbol{\tau}
+\cdot \mathbf{v}\right]-\mathbf{v}\cdot\left(\nabla \cdot
+\boldsymbol{\tau}\right)=\boldsymbol{\tau}:\nabla \mathbf{v}\)</span>
+for symmetric tensor</p>
+<p><span class="math inline">\(\boldsymbol{\tau}:\mathbf{u}
+\mathbf{v}=\boldsymbol{\tau}\cdot\mathbf{u}\cdot \mathbf{v}\)</span></p>
+<p>Rearranging</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{\partial}{\partial t}\left(\rho \mathbf{v} \cdot \mathbf{v}
+\right)+\nabla \cdot \left[\rho \left(\mathbf{v} \cdot
+\mathbf{v}\right)\mathbf{v}\right]- \mathbf{v} \cdot
+\rho\underbrace{\left[ \frac{\partial \mathbf{v}}{\partial t}
++\left(\mathbf{v}\cdot\nabla \right) \mathbf{v}\right]}_{=\mathbf{f}
+\quad Eq\eqref{eq21} } =\mathbf{f} \cdot \mathbf{v}
+\label{eq56}
+\end{equation}
+\]</span></p>
+<p>Note: assuming that there is no mass sources and sinks</p>
+<p>the flow kinetic energy</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{\partial}{\partial t}\left(\rho \frac{1}{2} \mathbf{v} \cdot
+\mathbf{v} \right)+\nabla \cdot \left[\rho \left(\frac{1}{2}\mathbf{v}
+\cdot \mathbf{v}\right)\mathbf{v}\right]= \underbrace{-\mathbf{v}
+\cdot\nabla p+\mathbf{v} \cdot\left[\nabla \cdot
+\boldsymbol{\tau}\right]+\mathbf{f}_{b}\cdot\mathbf{v}}_{ Eq\eqref{eq24}
+}
+\label{eq57}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left(\rho \frac{1}{2} \mathbf{v} \cdot
+\mathbf{v} \right)&amp;+\nabla \cdot \left[\rho
+\left(\frac{1}{2}\mathbf{v} \cdot \mathbf{v}\right)\mathbf{v}\right] \\
+&amp;=
+-\nabla\cdot\left[p\mathbf{v}\right]+p\nabla\cdot\mathbf{v}+\underbrace{\nabla
+\cdot \left[\boldsymbol{\tau} \cdot
+\mathbf{v}\right]-\boldsymbol{\tau}:\nabla \mathbf{v}}_{for \quad
+symmetric \quad tensor }+\mathbf{f}_{b}\cdot\mathbf{v}
+\end{aligned}
+\label{eq58}
+\end{equation}
+\]</span></p>
+<p>Subtracting Eq <span class="math inline">\(\eqref{eq58}\)</span> from
+Eq <span class="math inline">\(\eqref{eq53}\)</span>, the energy
+equation with specific internal energy</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial\rho\hat{u}}{\partial t}+\nabla \cdot(\rho \mathbf{v}
+\hat{u}) =- \nabla \cdot\dot{q_s}
+-p\nabla\cdot\mathbf{v}+\boldsymbol{\tau}:\nabla \mathbf{v}+\dot{q_V}
+\end{aligned}
+\label{eq59}
+\end{equation}
+\]</span></p>
+<h3
+id="conservation-of-energy-in-terms-of-specific-enthalpy">Conservation
+of Energy in Terms of Specific Enthalpy</h3>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\hat{u}=\hat{h}-\frac{p}{\rho}
+\end{aligned}
+\label{eq60}
+\end{equation}
+\]</span></p>
+<p>Substituting Eq <span class="math inline">\(\eqref{eq60}\)</span> for
+<span class="math inline">\(\hat{u}\)</span> in Eq <span
+class="math inline">\(\eqref{eq59}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial\rho\hat{h}}{\partial t}+\nabla \cdot(\rho \mathbf{v}
+\hat{h}) =- \nabla \cdot\dot{q_s}
++\frac{Dp}{Dt}+\boldsymbol{\tau}:\nabla \mathbf{v}+\dot{q_V}
+\end{aligned}
+\label{eq61}
+\end{equation}
+\]</span></p>
+<h3
+id="conservation-of-energy-in-terms-of-specific-total-enthalpy">Conservation
+of Energy in Terms of Specific Total Enthalpy</h3>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+e=\hat{u}+\frac{1}{2}\mathbf{v}\cdot\mathbf{v}=\hat{h}-\frac{p}{\rho}+\frac{1}{2}\mathbf{v}\cdot\mathbf{v}=\hat{h_0}-\frac{p}{\rho}
+\end{aligned}
+\label{eq62}
+\end{equation}
+\]</span></p>
+<p>Substituting Eq <span class="math inline">\(\eqref{eq62}\)</span> for
+<span class="math inline">\(e\)</span> in Eq <span
+class="math inline">\(\eqref{eq53}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}(\rho \hat{h_0})+\nabla \cdot(\rho \mathbf{v}
+\hat{h_0}) =- \nabla \cdot\dot{q_s} +\frac{\partial p}{\partial
+t}+\nabla \cdot \left[\boldsymbol{\tau} \cdot \mathbf{v}\right]+
+\mathbf{f}_{b} \cdot \mathbf{v}+\dot{q_V}
+\end{aligned}
+\label{eq63}
+\end{equation}
+\]</span></p>
+<h3 id="conservation-of-energy-in-terms-of-temperature">Conservation of
+Energy in Terms of Temperature</h3>
+<p>Assuming <span class="math inline">\(\hat{h}\)</span> to be a
+function of <span class="math inline">\(p\)</span> and <span
+class="math inline">\(T\)</span>, the fluid is expected to be
+Newtonian.</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+d\hat{h}=\left(\frac{\partial \hat{h}}{\partial
+T}\right)_{p}dT+\left(\frac{\partial \hat{h}}{\partial p}\right)_{T}dp
+\end{aligned}
+\label{eq64}
+\end{equation}
+\]</span></p>
+<p>the ordinary equilibrium thermodynamics relation</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\left(\frac{\partial \hat{h}}{\partial
+p}\right)_{T}=\hat{V}-T\left(\frac{\partial \hat{V}}{\partial
+T}\right)_{p}
+\end{aligned}
+\label{eq65}
+\end{equation}
+\]</span></p>
+<p>where the <span class="math inline">\(\hat{V}\)</span> is the
+specific volume</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+d\hat{h}=c_p dT+\left[\hat{V}-T\left(\frac{\partial \hat{V}}{\partial
+T}\right)_{p}\right]dp
+\end{aligned}
+\label{eq66}
+\end{equation}
+\]</span></p>
+<p>using the left side of Eq <span
+class="math inline">\(\eqref{eq61}\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial\rho\hat{h}}{\partial t}+\nabla \cdot\left(\rho \mathbf{v}
+\hat{h}\right) =&amp;\rho\frac{\partial\hat{h}}{\partial
+t}+\hat{h}\frac{\partial\rho}{\partial t}+\hat{h}\nabla \cdot\left(\rho
+\mathbf{v} \right)+\rho \mathbf{v} \cdot \nabla \hat{h} \\
+=&amp; \rho\left(\frac{\partial\hat{h}}{\partial t}+\mathbf{v} \cdot
+\nabla
+\hat{h}\right)+\hat{h}\underbrace{\left(\frac{\partial\rho}{\partial
+t}+\nabla \cdot\left(\rho \mathbf{v} \right)\right)}_{=0 \quad Eq
+\eqref{eq13}} \\
+=&amp; \rho\frac{D\hat{h}}{D t}=\rho c_p\frac{DT}{D
+t}+\rho\left[\hat{V}-T\left(\frac{\partial \hat{V}}{\partial
+T}\right)_{p}\right]\frac{Dp}{D t} \\
+=&amp;\rho c_p\frac{DT}{D
+t}+\rho\left[\frac{1}{\rho}-T\left(\frac{\partial (1/\rho)}{\partial
+T}\right)_{p}\right]\frac{Dp}{D t} \\
+=&amp;\rho c_p\frac{DT}{D
+t}+\rho\left[\frac{1}{\rho}-T\left(\frac{-\frac{1}{\rho^2}\partial
+\rho}{\partial T}\right)_{p}\right]\frac{Dp}{D t} \\
+=&amp;\rho c_p\frac{DT}{D t}+\left[1+\left(\frac{\frac{1}{\rho}\partial
+\rho}{\frac{1}{T}\partial T}\right)_{p}\right]\frac{Dp}{D t} \\
+=&amp;\rho c_p\frac{DT}{D t}+\left[1+\left(\frac{\partial
+(\ln\rho)}{\partial (\ln T)}\right)_{p}\right]\frac{Dp}{D t}
+\end{aligned}
+\label{eq67}
+\end{equation}
+\]</span></p>
+<p>Substituting Eq <span class="math inline">\(\eqref{eq67}\)</span>
+into Eq <span class="math inline">\(\eqref{eq61}\)</span> gives the
+energy equation with T</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\rho c_p\frac{DT}{D t} =- \nabla \cdot\dot{q_s} -\left(\frac{\partial
+(\ln\rho)}{\partial (\ln T)}\right)_{p}\frac{Dp}{D
+t}+\boldsymbol{\tau}:\nabla \mathbf{v}+\dot{q_V}
+\end{aligned}
+\label{eq68}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\rho c_p\frac{DT}{D t} &amp;= \rho c_p\underbrace{\left(\frac{\partial
+T}{\partial t}+\mathbf{v}\cdot \nabla T\right)}_{=\frac{DT}{D t}} + T
+c_p \underbrace{\left(\frac{\partial\rho}{\partial t}+\nabla
+\cdot\left(\rho \mathbf{v} \right)\right)}_{=0 \quad Eq \eqref{eq13}} \\
+&amp;=c_p\left(\rho\frac{\partial T}{\partial t}+\rho\mathbf{v}\cdot
+\nabla T+T\frac{\partial\rho}{\partial t}+T\nabla \cdot\left(\rho
+\mathbf{v} \right)\right) \\
+&amp;=c_p\left(\frac{\partial \rho T}{\partial t}+\nabla \cdot\left(\rho
+\mathbf{v} T \right)\right) \\
+&amp;=- \nabla \cdot\dot{q_s} -\left(\frac{\partial (\ln\rho)}{\partial
+(\ln T)}\right)_{p}\frac{Dp}{D t}+\boldsymbol{\tau}:\nabla
+\mathbf{v}+\dot{q_V}
+\end{aligned}
+\label{eq69}
+\end{equation}
+\]</span></p>
+<p>The heat flux <span class="math inline">\(\dot{q_s}\)</span> is the
+heat transfer by diffusion (molecular level), which is governed by
+Fourier's law</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\dot{q_s}=-\left[k\nabla T\right]
+\end{aligned}
+\label{eq70}
+\end{equation}
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the thermal
+conductivity of the substance, and the medium is isotropic. However some
+solids are anisotropic for which Eq <span
+class="math inline">\(\eqref{eq70}\)</span> is replaced by</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\dot{q_s}=-\left[\mathbf{k} \cdot \nabla T\right]
+\end{aligned}
+\label{eq71}
+\end{equation}
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{k}\)</span> is a second
+order symmetric tensor called the thermal conductivity tensor.</p>
+<p>using Eq <span class="math inline">\(\eqref{eq70}\)</span>, then Eq
+<span class="math inline">\(\eqref{eq69}\)</span> becomes</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+c_p\left(\frac{\partial \rho T}{\partial t}+\nabla \cdot\left(\rho
+\mathbf{v} T \right)\right)=\nabla \cdot\left[k\nabla
+T\right]-\left(\frac{\partial (\ln\rho)}{\partial (\ln
+T)}\right)_{p}\frac{Dp}{D t}+\boldsymbol{\tau}:\nabla
+\mathbf{v}+\dot{q_V}
+\end{aligned}
+\label{eq72}
+\end{equation}
+\]</span></p>
+<p>using <span class="math inline">\(\eqref{eq34}\)</span>, the
+expression for <span class="math inline">\(\left(\tau: \nabla
+\mathbf{v}\right)\)</span> can be written as</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\left(\tau: \nabla \mathbf{v}\right)=&amp;\lambda\left(\frac{\partial
+u}{\partial x}+\frac{\partial v}{\partial y}+\frac{\partial w}{\partial
+z}\right)^{2}  \\
++&amp;\mu\left(\begin{array}{c}2\left(\frac{\partial u}{\partial
+x}\right)^{2}+2\left(\frac{\partial v}{\partial
+y}\right)^{2}+2\left(\frac{\partial w}{\partial z}\right)^{2} \\
++\left(\frac{\partial u}{\partial y}+\frac{\partial v}{\partial
+x}\right)^{2}+\left(\frac{\partial u}{\partial z}+\frac{\partial
+w}{\partial x}\right)^{2}+\left(\frac{\partial v}{\partial
+z}+\frac{\partial w}{\partial y}\right)^{2} \end{array}\right)
+\end{aligned}
+\label{eq73}
+\end{equation}
+\]</span></p>
+<p>Let:</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\Psi=\left(\frac{\partial u}{\partial x}+\frac{\partial v}{\partial
+y}+\frac{\partial w}{\partial z}\right)^{2}
+\end{aligned}
+\label{eq74}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\Phi=&amp;2\left[\left(\frac{\partial u}{\partial
+x}\right)^{2}+\left(\frac{\partial v}{\partial
+y}\right)^{2}+\left(\frac{\partial w}{\partial z}\right)^{2}\right] \\
+&amp;+\left(\frac{\partial u}{\partial y}+\frac{\partial v}{\partial
+x}\right)^{2}+\left(\frac{\partial u}{\partial z}+\frac{\partial
+w}{\partial x}\right)^{2}+\left(\frac{\partial v}{\partial
+z}+\frac{\partial w}{\partial y}\right)^{2}
+\end{aligned}
+\label{eq75}
+\end{equation}
+\]</span></p>
+<p>Then,</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+c_p\left(\frac{\partial \rho T}{\partial t}+\nabla \cdot\left(\rho
+\mathbf{v} T \right)\right)=\nabla \cdot\left[k\nabla
+T\right]-\left(\frac{\partial (\ln\rho)}{\partial (\ln
+T)}\right)_{p}\frac{Dp}{D t}+\lambda\Psi+\mu\Phi+\dot{q_V}
+\end{aligned}
+\label{eq76}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+c_p\left(\frac{\partial \rho T}{\partial t}+\nabla \cdot\left(\rho
+\mathbf{v} T \right)\right)=&amp;c_p\frac{\partial \rho T}{\partial
+t}+c_p\nabla \cdot\left(\rho \mathbf{v} T \right) \\
+=&amp;\frac{\partial \rho c_p T}{\partial t}-\rho T\frac{\partial
+c_p}{\partial t}+\nabla \cdot\left(\rho c_p \mathbf{v} T \right)-\rho
+\mathbf{v} T\cdot \nabla  c_p \\
+=&amp;\frac{\partial \rho c_p T}{\partial t}+\nabla \cdot\left(\rho c_p
+\mathbf{v} T \right)-\rho T\underbrace{\left(\frac{\partial
+c_p}{\partial t}+\mathbf{v}\cdot \nabla  c_p\right)}_{\frac{D c_p}{D t}}
+\\
+\frac{\partial \rho c_p T}{\partial t}+\nabla \cdot\left(\rho c_p
+\mathbf{v} T \right)=&amp;\nabla \cdot\left[k\nabla T\right] \\
+&amp;+\underbrace{\rho T\frac{D c_p}{D t}-\left(\frac{\partial
+(\ln\rho)}{\partial (\ln T)}\right)_{p}\frac{Dp}{D
+t}+\lambda\Psi+\mu\Phi+\dot{q_V}}_{Q^{T}}
+\end{aligned}
+\label{eq77}
+\end{equation}
+\]</span></p>
+<p>Then,</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial \rho c_p T}{\partial t}+\nabla \cdot\left(\rho c_p
+\mathbf{v} T \right)=\nabla \cdot\left[k\nabla T\right] +Q^{T}
+\end{aligned}
+\label{eq78}
+\end{equation}
+\]</span></p>
+<p>The dissipation term <span class="math inline">\(\Phi\)</span> has
+negligible values except for large velocity gradients at supersonic
+speeds. Moreover, for incompressible fluids the continuity equation
+implies that <span class="math inline">\(\Psi = 0\)</span> and because
+the density is constant it follows that <span
+class="math inline">\(\frac{\partial (\ln\rho)}{\partial (\ln
+T)}=0\)</span>.</p>
+<ul>
+<li>incompressible fluid flow</li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial \rho c_p T}{\partial t}+\nabla \cdot\left(\rho c_p
+\mathbf{v} T \right)=&amp;\nabla \cdot\left[k\nabla T\right]
++\underbrace{\rho T\frac{D c_p}{D t}+\dot{q_V}}_{Q^{T}}
+\end{aligned}
+\label{eq79}
+\end{equation}
+\]</span></p>
+<ul>
+<li>for the case of a solid</li>
+</ul>
+<p>the density is constant, the velocity is zero, and if changes in
+temperature are not large then the thermal conductivity may be
+considered constant</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\rho c_p \frac{\partial T}{\partial t}=k \nabla^{2} T +\dot{q_V}
+\end{aligned}
+\label{eq80}
+\end{equation}
+\]</span></p>
+<ul>
+<li>for ideal gases</li>
+</ul>
+<p><span class="math inline">\(pv=nRT \Rightarrow T=\frac{p}{nR\rho}
+\Rightarrow dT=-\frac{p}{nR\rho^2}d\rho\)</span></p>
+<p><span class="math inline">\(\frac{\partial (\ln\rho)}{\partial (\ln
+T)}=\frac{T}{\rho}\frac{\partial \rho}{\partial
+T}=\frac{\frac{p}{nR\rho}}{\rho}\frac{\partial
+\rho}{-\frac{p}{nR\rho^2}d\rho}=-1\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+c_p\left(\frac{\partial \rho T}{\partial t}+\nabla \cdot\left(\rho
+\mathbf{v} T \right)\right)=\nabla \cdot\left[k\nabla
+T\right]+\frac{Dp}{D t}+\lambda\Psi+\mu\Phi+\dot{q_V}
+\end{aligned}
+\label{eq81}
+\end{equation}
+\]</span></p>
+<p>If viscosity is neglected (i.e. the flow is inviscid), Eq <span
+class="math inline">\(\eqref{eq81}\)</span> can be further simplified
+to</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+c_p\left(\frac{\partial \rho T}{\partial t}+\nabla \cdot\left(\rho
+\mathbf{v} T \right)\right)=\nabla \cdot\left[k\nabla
+T\right]+\frac{Dp}{D t}+\dot{q_V}
+\end{aligned}
+\label{eq82}
+\end{equation}
+\]</span></p>
+<h2 id="general-conservation-equation">General Conservation
+Equation</h2>
+<p><span class="math inline">\(\rm{Term \enspace I= Term \enspace II +
+Term \enspace III}\)</span></p>
+<p><span class="math inline">\(\rm{Term \enspace I}\)</span>：change of
+<span class="math inline">\(\phi\)</span> over time <span
+class="math inline">\(\Delta t\)</span> within the material volume
+(<span class="math inline">\(MV\)</span>)</p>
+<p><span class="math inline">\(\rm{Term \enspace II}\)</span>：surface
+flux of <span class="math inline">\(\phi\)</span> over time <span
+class="math inline">\(\Delta t\)</span> across the control volume (<span
+class="math inline">\(V\)</span>)</p>
+<p><span class="math inline">\(\rm{Term \enspace
+III}\)</span>：source/sink of <span class="math inline">\(\phi\)</span>
+over time <span class="math inline">\(\Delta t\)</span> within the
+control volume (<span class="math inline">\(V\)</span>)</p>
+<p><strong>Note</strong>: <span class="math inline">\(\phi\)</span>
+represents any intensive property, which has the same meaning of <span
+class="math inline">\(b\)</span> in Equation <span
+class="math inline">\(\eqref{eq4}\)</span>. And using Equation <span
+class="math inline">\(\eqref{eq7}\)</span> for the fixed control volume,
+the <span class="math inline">\(\rm{Term \enspace I}\)</span> can be
+written as</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\rm{Term \enspace I} =&amp; \left(\frac{d B}{d t}\right)_{M V}=\frac{d
+}{d t}\left(\int\limits_{MV}\left(\rho\phi\right)dV\right) \\
+=&amp;\int\limits_{V}\left[\frac{\partial}{\partial t}(\rho \phi)+\nabla
+\cdot(\rho \mathbf{v} \phi)\right] d V
+\end{aligned}
+\label{eq83}
+\end{equation}
+\]</span></p>
+<p><strong>Note</strong>: <span class="math inline">\(\phi=b\)</span>
+and <span class="math inline">\(\rho\)</span> is the fluid density and
+<span class="math inline">\(V\)</span> the volume of the control volume
+of surface area <span class="math inline">\(S\)</span>. The term <span
+class="math inline">\(\rho\mathbf{v}\phi\)</span> represents the
+transport of <span class="math inline">\(\phi\)</span> by the flow field
+and is denoted by the convective flux, i.e.,</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\mathbf{J}_{convection}^{\phi}=\rho\mathbf{v}\phi
+\end{aligned}
+\label{eq84}
+\end{equation}
+\]</span></p>
+<hr />
+<p><strong>Note</strong>: the convective flux is related to the
+velocity.</p>
+<hr />
+<p>For <span class="math inline">\(\rm{Term \enspace II}\)</span>, the
+mechanism causing the influx/out flux of <span
+class="math inline">\(\phi\)</span> is due to diffusion, which is
+produced by molecular collision</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\mathbf{J}_{diffusion}^{\phi}=-\Gamma^{\phi}\nabla\phi
+\end{aligned}
+\label{eq85}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\rm{Term \enspace
+II}=\underbrace{-\int\limits_{S}\mathbf{J}_{diffusion}^{\phi} \cdot
+dS=-\int\limits_{V}\nabla \cdot \mathbf{J}_{diffusion}^{\phi}
+dV}_{Gauss&#39; \enspace theorem} = \int\limits_{V}\nabla \cdot
+\left(\Gamma^{\phi}\nabla\phi\right) dV
+\end{aligned}
+\label{eq86}
+\end{equation}
+\]</span></p>
+<p>source term</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\rm{Term \enspace III}=\int\limits_{V}Q^{\phi} dV
+\end{aligned}
+\label{eq87}
+\end{equation}
+\]</span></p>
+<p>Thus the conservation equation can be expressed as</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{V}\left[\frac{\partial}{\partial t}(\rho \phi)+\nabla
+\cdot(\rho \mathbf{v} \phi)\right] d V=\int\limits_{V}\nabla \cdot
+\left(\Gamma^{\phi}\nabla\phi\right) dV+\int\limits_{V}Q^{\phi} dV
+\end{aligned}
+\label{eq88}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{V}\left[\frac{\partial}{\partial t}\left(\rho
+\phi\right)+\nabla \cdot\left(\rho \mathbf{v} \phi\right)-\nabla \cdot
+\left(\Gamma^{\phi}\nabla\phi\right)-Q^{\phi}\right] d V=0
+\end{aligned}
+\label{eq89}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left(\rho \phi\right)+\nabla \cdot\left(\rho
+\mathbf{v} \phi\right)-\nabla \cdot
+\left(\Gamma^{\phi}\nabla\phi\right)-Q^{\phi}=0
+\end{aligned}
+\label{eq90}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}\left(\rho \phi\right)+\nabla \cdot
+\mathbf{J}^{\phi}-Q^{\phi}=0
+\end{aligned}
+\label{eq91}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\mathbf{J}^{\phi}=\mathbf{J}^{\phi,C}+\mathbf{J}^{\phi,D}=\rho
+\mathbf{v} \phi-\Gamma^{\phi}\nabla\phi
+\end{aligned}
+\label{eq92}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\underbrace{\frac{\partial}{\partial t}\left(\rho \phi\right)}_{unsteady
+\enspace term}+\underbrace{\nabla \cdot\left(\rho \mathbf{v}
+\phi\right)}_{convection \enspace term}=\underbrace{\nabla \cdot
+\left(\Gamma^{\phi}\nabla\phi\right)}_{diffusion \enspace
+term}+\underbrace{Q^{\phi}}_{source \enspace term}
+\end{aligned}
+\label{eq93}
+\end{equation}
+\]</span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="zsf WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="zsf Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/formula/" rel="tag"># formula</a>
+              <a href="/tags/fvm/" rel="tag"># fvm</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/21/chapter2/" rel="prev" title="Review of Vector Calculus">
+                  <i class="fa fa-chevron-left"></i> Review of Vector Calculus
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zsf</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
