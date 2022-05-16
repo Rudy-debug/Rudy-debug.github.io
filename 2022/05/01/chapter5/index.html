@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rudy-debug.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="The discretization procedure used in the finite volume method is distinctive and involves two basic steps. In the first step, the partial differential equations are integrated and transformed into">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Finite Volume Method">
+<meta property="og:url" content="https://rudy-debug.github.io/2022/05/01/chapter5/index.html">
+<meta property="og:site_name" content="OpenFOAM之殇">
+<meta property="og:description" content="The discretization procedure used in the finite volume method is distinctive and involves two basic steps. In the first step, the partial differential equations are integrated and transformed into">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://rudy-debug.github.io/images/figure_zsf/5_1.jpg">
+<meta property="og:image" content="https://rudy-debug.github.io/images/figure_zsf/5_2.jpg">
+<meta property="article:published_time" content="2022-05-01T04:45:19.000Z">
+<meta property="article:modified_time" content="2022-05-02T09:24:48.388Z">
+<meta property="article:author" content="zsf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rudy-debug.github.io/images/figure_zsf/5_1.jpg">
+
+
+<link rel="canonical" href="https://rudy-debug.github.io/2022/05/01/chapter5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://rudy-debug.github.io/2022/05/01/chapter5/","path":"2022/05/01/chapter5/","title":"The Finite Volume Method"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>The Finite Volume Method | OpenFOAM之殇</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OpenFOAM之殇</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-semi-discretized-equation"><span class="nav-number">1.</span> <span class="nav-text">The Semi-Discretized
+Equation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flux-integration-over-element-faces"><span class="nav-number">1.1.</span> <span class="nav-text">Flux Integration Over
+Element Faces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#source-term-volume-integration"><span class="nav-number">1.2.</span> <span class="nav-text">Source Term Volume
+Integration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-discrete-conservation-equation-for-one-integration-point"><span class="nav-number">1.3.</span> <span class="nav-text">The
+Discrete Conservation Equation for One Integration Point</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flux-linearization"><span class="nav-number">1.4.</span> <span class="nav-text">Flux Linearization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boundary-conditions"><span class="nav-number">2.</span> <span class="nav-text">Boundary Conditions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#order-of-accuracy"><span class="nav-number">3.</span> <span class="nav-text">Order of Accuracy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transient-semi-discretized-equation"><span class="nav-number">4.</span> <span class="nav-text">Transient Semi-Discretized
+Equation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#properties-of-the-discretized-equations"><span class="nav-number">5.</span> <span class="nav-text">Properties of the
+Discretized Equations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variable-arrangement"><span class="nav-number">6.</span> <span class="nav-text">Variable Arrangement</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zsf"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">zsf</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Rudy-debug" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Rudy-debug" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangsf19@gmail.com" title="E-Mail → mailto:zhangsf19@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://openfoamwiki.net/index.php/Main_Page" title="https:&#x2F;&#x2F;openfoamwiki.net&#x2F;index.php&#x2F;Main_Page" rel="noopener" target="_blank">OpenFOAM wiki</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rudy-debug.github.io/2022/05/01/chapter5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zsf">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OpenFOAM之殇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="The Finite Volume Method | OpenFOAM之殇">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The Finite Volume Method
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-01 12:45:19" itemprop="dateCreated datePublished" datetime="2022-05-01T12:45:19+08:00">2022-05-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-05-02 17:24:48" itemprop="dateModified" datetime="2022-05-02T17:24:48+08:00">2022-05-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>The discretization procedure used in the <strong>finite volume
+method</strong> is distinctive and involves two basic steps.</p>
+<p>In the first step, the partial differential equations are integrated
+and transformed into balance equations over an element, which can be
+called <strong>discrete algebraic relations</strong>.</p>
+<span id="more"></span>
+<p>In the second step, <strong>interpolation profiles</strong> are
+chosen to approximate the variation of the variables within the element
+and relate the surface values of the variables to their cell values and
+thus transform the algebraic relations into <strong>algebraic
+equations</strong>.</p>
+<h2 id="the-semi-discretized-equation">The Semi-Discretized
+Equation</h2>
+<p>In the first step of the finite volume discretization process</p>
+<ul>
+<li><p>the governing equations are integrated over the elements</p></li>
+<li><p>then the Gauss theorem is applied to transform the volume
+integrals of the convection and diffusion terms into surface
+integrals</p></li>
+<li><p>the surface and volume integrals are transformed into discrete
+ones and integrated numerically through the use of integration
+points</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\underbrace{\frac{\partial}{\partial t}\left(\rho \phi\right)}_{unsteady
+\enspace term}+\underbrace{\nabla \cdot\left(\rho \mathbf{v}
+\phi\right)}_{convection \enspace term}=\underbrace{\nabla \cdot
+\left(\Gamma^{\phi}\nabla\phi\right)}_{diffusion \enspace
+term}+\underbrace{Q^{\phi}}_{source \enspace term}
+\end{aligned}
+\label{eq1}
+\end{equation}
+\]</span></p>
+<p>The steady-state form</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\nabla \cdot\left(\rho \mathbf{v} \phi\right)=\nabla \cdot
+\left(\Gamma^{\phi}\nabla\phi\right)+Q^{\phi}
+\end{aligned}
+\label{eq2}
+\end{equation}
+\]</span></p>
+<p>By integrating the above equation over the element <span
+class="math inline">\(C\)</span> shown in Fig.1</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{V_C}\nabla \cdot\left(\rho \mathbf{v}
+\phi\right)dV=\int\limits_{V_C}\nabla \cdot
+\left(\Gamma^{\phi}\nabla\phi\right)dV+\int\limits_{V_C}Q^{\phi}dV
+\end{aligned}
+\label{eq3}
+\end{equation}
+\]</span></p>
+<figure>
+<img src="/images/figure_zsf/5_1.jpg"
+alt="Fig 1. Conservation in a discrete element" />
+<figcaption aria-hidden="true"><strong>Fig</strong> 1. Conservation in a
+discrete element<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></figcaption>
+</figure>
+<p>using Gauss' theorem</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\oint\limits_{\partial V_C}\left(\rho \mathbf{v} \phi\right)\cdot
+d\mathbf{S}=\oint\limits_{\partial
+V_C}\left(\Gamma^{\phi}\nabla\phi\right)\cdot
+d\mathbf{S}+\int\limits_{V_C}Q^{\phi}dV
+\end{aligned}
+\label{eq4}
+\end{equation}
+\]</span></p>
+<h3 id="flux-integration-over-element-faces">Flux Integration Over
+Element Faces</h3>
+<p>The convection flux:</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\mathbf{J}^{\phi , C}=\rho\mathbf{v}\phi
+\end{aligned}
+\label{eq5}
+\end{equation}
+\]</span></p>
+<p>The diffusion flux:</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\mathbf{J}^{\phi , D}=-\Gamma^{\phi}\nabla\phi
+\end{aligned}
+\label{eq6}
+\end{equation}
+\]</span></p>
+<p>The total flux</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\mathbf{J}^{\phi}=\mathbf{J}^{\phi,C}+\mathbf{J}^{\phi,D}
+\end{aligned}
+\label{eq7}
+\end{equation}
+\]</span></p>
+<p>Replacing the surface integral over cell <span
+class="math inline">\(C\)</span> by a summation of the flux terms over
+the faces of element <span class="math inline">\(C\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\oint\limits_{\partial V_{C}} \mathbf{J}^{\phi, C} \cdot d
+\mathbf{S}=\sum_{f \sim
+\operatorname{faces}\left(V_{C}\right)}\left(\int\limits_{f}(\rho
+\mathbf{v} \phi) \cdot d \mathbf{S}\right)
+\end{aligned}
+\label{eq8}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\oint\limits_{\partial V_{C}} \mathbf{J}^{\phi, D} \cdot d
+\mathbf{S}=\sum_{f \sim
+\operatorname{faces}\left(V_{C}\right)}\left(\int\limits_{f}\left(\Gamma^{\phi}
+\nabla \phi\right) \cdot d \mathbf{S}\right)
+\end{aligned}
+\label{eq9}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\oint\limits_{\partial V_{C}} \mathbf{J}^{\phi} \cdot d
+\mathbf{S}=\sum_{f \sim
+\operatorname{faces}\left(V_{C}\right)}\left(\int\limits_{f}
+\mathbf{J}^{\phi} \cdot d \mathbf{S}\right)
+\end{aligned}
+\label{eq10}
+\end{equation}
+\]</span></p>
+<p><strong>Note</strong>: <span class="math inline">\(f\)</span> refers
+to a face of element <span class="math inline">\(C\)</span> and <span
+class="math inline">\(faces(V_C)\)</span> the number of faces of element
+<span class="math inline">\(C\)</span>. <span
+class="math inline">\(\left(\int\limits_{f} \mathbf{J}^{\phi} \cdot d
+\mathbf{S}\right)\)</span> represents the flux of face <span
+class="math inline">\(f\)</span> for element <span
+class="math inline">\(C\)</span>. <span
+class="math inline">\(\sum\limits_{f \sim
+\operatorname{faces}\left(V_{C}\right)}\)</span> represents the total
+flux of all faces for element <span
+class="math inline">\(C\)</span>.</p>
+<p>To proceed further with the discretization, the surface integral at
+each face of the element in addition to the volume integral of the
+source term have to be evaluated. Using a <strong>Gaussian
+quadrature</strong> the integral at the face <span
+class="math inline">\(f\)</span> of the element becomes</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{f} \mathbf{J}^{\phi} \cdot d \mathbf{S}=\int\limits_{f}
+\left(\mathbf{J}^{\phi} \cdot \mathbf{n}\right) dS=\sum\limits_{ip \sim
+ip(f)}\left(\mathbf{J}^{\phi} \cdot \mathbf{n}\right)_{ip}\omega_{ip}
+S_f
+\end{aligned}
+\label{eq11}
+\end{equation}
+\]</span></p>
+<p>where <span class="math inline">\(ip\)</span> refers to an
+integration point and <span class="math inline">\(ip(f)\)</span> the
+number of integration points along surface <span
+class="math inline">\(f\)</span>. And <span
+class="math inline">\(\omega_{ip}\)</span> is the weighting
+function.</p>
+<p><strong>Note</strong>: This transformation is the <strong>first
+approximation introduced</strong>.</p>
+<h3 id="source-term-volume-integration">Source Term Volume
+Integration</h3>
+<p>Volume integration is used for the source term. Adopting a
+<strong>Gaussian quadrature</strong> integration, the volume integral of
+the source term is computed as</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{V} Q^{\phi}dV=\sum\limits_{ip \sim
+ip(V)}\left(Q_{ip}^{\phi} \omega_{ip} V\right)
+\end{aligned}
+\label{eq14}
+\end{equation}
+\]</span></p>
+<p><strong>Note</strong>: This transformation is the <strong>first
+approximation introduced</strong>.</p>
+<h3
+id="the-discrete-conservation-equation-for-one-integration-point">The
+Discrete Conservation Equation for One Integration Point</h3>
+<p>It is customary for the finite volume method to use <strong>one
+integration point</strong>, yielding second order accuracy.</p>
+<p>Then, the partial differential equations are transformed into
+<strong>discrete algebraic relations</strong>.</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+&amp; \oint\limits_{\partial V_C}\left(\rho \mathbf{v} \phi\right)\cdot
+d\mathbf{S} = \oint\limits_{\partial
+V_C}\left(\Gamma^{\phi}\nabla\phi\right)\cdot d\mathbf{S} +
+\int\limits_{V_C}Q^{\phi}dV \\
+&amp; \underbrace{\sum\limits_{f \sim
+\operatorname{faces}\left(V_{C}\right)} \sum\limits_{ip \sim ip(f)}
+\left(\omega_{ip}\left(\rho \mathbf{v} \phi\right)_{ip}\cdot
+\mathbf{S_f}\right) = \sum\limits_{f \sim
+\operatorname{faces}\left(V_{C}\right)} \sum\limits_{ip \sim ip(f)}
+\left(\omega_{ip}\left(\Gamma^{\phi}\nabla\phi\right)_{ip}\cdot
+\mathbf{S_f}\right)+\sum\limits_{ip \sim ip(V)}\left(Q_{ip}^{\phi}
+\omega_{ip} V\right)}_{one \enspace integration \enspace point \enspace
+\Rightarrow ip\left(f\right)=1, \enspace \omega_{ip} = 1} \\
+&amp; \sum\limits_{f \sim \operatorname{faces}\left(V_{C}\right)}
+\left(\rho \mathbf{v} \phi\right)_{f}\cdot \mathbf{S_f} = \sum\limits_{f
+\sim \operatorname{faces}\left(V_{C}\right)}
+\left(\Gamma^{\phi}\nabla\phi\right)_{f} \cdot \mathbf{S_f}+Q_{C}^{\phi}
+V_C \\
+&amp; \sum\limits_{f \sim \operatorname{faces}\left(V_{C}\right)}
+\left(\rho \mathbf{v} \phi - \Gamma^{\phi}\nabla\phi\right)_{f}\cdot
+\mathbf{S_f} =Q_{C}^{\phi} V_C
+\end{aligned}
+\label{eq15}
+\end{equation}
+\]</span></p>
+<p>The aim of the second stage of the discretization process is to
+transform the above equation into an algebraic equation by
+<strong>expressing the face and volume fluxes in terms of the values of
+the variable at the neighboring cell centers</strong>. This
+<strong>linearization of the fluxes</strong> is at the core of the
+second discretization step.</p>
+<h3 id="flux-linearization">Flux Linearization</h3>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\mathbf{J}_{f}^{\phi}\cdot\mathbf{S}_{f}
+=\underbrace{FluxT_{f}}_{\begin{array}{l}total \enspace flux \\ for
+\enspace face \enspace f\end{array}}
+=\underbrace{FluxC_{f}}_{\begin{array}{l}flux \enspace linearization \\
+coefficient \enspace for \enspace C\end{array}} \phi_{C}
++\underbrace{FluxF_{f}}_{\begin{array}{l}flux \enspace linearization \\
+coefficient \enspace for \enspace F\end{array}} \phi_{F}
++\underbrace{FluxV_{f}}_{non-linearized \enspace part}
+\end{aligned}
+\label{eq16}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+Q_{C}^{\phi} V_{C} =FluxT = FluxC \phi_{C}+FluxV
+\end{aligned}
+\label{eq18}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+a_C \phi_{C} + \sum\limits_{F \sim NB(C)} \left(a_F \phi_{F}\right)=b_C
+\end{aligned}
+\label{eq19}
+\end{equation}
+\]</span></p>
+<p>where:</p>
+<p><span class="math inline">\(a_{C}=\sum\limits_{f \sim n b(C)}
+FluxC_{f}-FluxC\)</span></p>
+<p><span class="math inline">\(a_{F}=FluxF_{f}\)</span></p>
+<p><span class="math inline">\(b_{C}=-\sum\limits_{f \sim n b(C)}
+FluxV_{f}+FluxV\)</span></p>
+<h2 id="boundary-conditions">Boundary Conditions</h2>
+<ul>
+<li><p>Value Specified (Dirichlet Boundary Condition)</p></li>
+<li><p>Flux Specified (Neumann Boundary Condition)</p></li>
+</ul>
+<h2 id="order-of-accuracy">Order of Accuracy</h2>
+<ul>
+<li><p>Spatial Variation Approximation</p></li>
+<li><p>Mean Value Approximation</p></li>
+</ul>
+<h2 id="transient-semi-discretized-equation">Transient Semi-Discretized
+Equation</h2>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{t}^{t+\Delta t} \int\limits_{V_{C}} \frac{\partial(\rho
+\phi)}{\partial t} d V d t=\int\limits_{t}^{t+\Delta t}
+\frac{\partial}{\partial t}\left(\int\limits_{V_{C}} \rho \phi d
+V\right) d t=\int\limits_{t}^{t+\Delta t} \frac{\partial(\overline{\rho
+\phi})}{\partial t} V_{C} d t
+\end{aligned}
+\label{eq35}
+\end{equation}
+\]</span></p>
+<p>where: <span class="math inline">\(\overline{\rho
+\phi_C}=\frac{1}{V_C}\int\limits_{V_C}\rho \phi dV=\left(\rho \phi
+\right)_C +O\left(\Delta ^2 \right)\)</span></p>
+<h2 id="properties-of-the-discretized-equations">Properties of the
+Discretized Equations</h2>
+<ul>
+<li><p>Conservation</p></li>
+<li><p>Accuracy</p></li>
+<li><p>Convergence</p></li>
+<li><p>Consistency</p></li>
+<li><p>Stability</p></li>
+<li><p>Economy</p></li>
+<li><p>Transportiveness</p></li>
+</ul>
+<h2 id="variable-arrangement">Variable Arrangement</h2>
+<ul>
+<li><p>Vertex-Centered FVM</p></li>
+<li><p>Cell-Centered FVM (selected in OpenFOAM)</p></li>
+</ul>
+<figure>
+<img src="/images/figure_zsf/5_2.jpg"
+alt="Fig 2. Two non-junctional cell-centered elements &amp;&amp; A non-orthogonal element^1" />
+<figcaption aria-hidden="true"><strong>Fig</strong> 2. Two
+non-junctional cell-centered elements &amp;&amp; A non-orthogonal
+element<span class="math inline">\(^1\)</span></figcaption>
+</figure>
+<p>As shown in Fig 2, it is clear that any average of a value defined at
+<span class="math inline">\(C\)</span> and <span
+class="math inline">\(F\)</span> will be defined at <span
+class="math inline">\(f^{&#39;}\)</span> rather than <span
+class="math inline">\(f\)</span>, the centroid of the face.</p>
+<p>The value of the angle <span class="math inline">\(θ\)</span>
+extending between the unit vector <span
+class="math inline">\(\mathbf{e}\)</span> (which is in the direction of
+the line joining the centroids of the elements <span
+class="math inline">\(C\)</span> and <span
+class="math inline">\(F\)</span>) and the unit vector <span
+class="math inline">\(\mathbf{n}\)</span> (which is normal to the face
+shared by the elements <span class="math inline">\(C\)</span> and <span
+class="math inline">\(F\)</span>) affects the degree of
+implicitness.</p>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Moukalled F , Mangani L , Darwish M .
+<a target="_blank" rel="noopener" href="https://link.springer.com/book/10.1007/978-3-319-16874-6">The
+Finite Volume Method in Computational Fluid Dynamics : An Advanced
+Introduction with OpenFOAM and MATLAB[M]</a>. Springer Publishing
+Company, Incorporated, 2015.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="zsf WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="zsf Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/29/chapter4/" rel="prev" title="The Discretization Process">
+                  <i class="fa fa-chevron-left"></i> The Discretization Process
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/02/chapter6/" rel="next" title="The Finite Volume Mesh">
+                  The Finite Volume Mesh <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zsf</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
