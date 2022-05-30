@@ -125,7 +125,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -183,6 +183,141 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rudy-debug.github.io/2022/05/30/Equation-Discretisation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zsf">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OpenFOAM之殇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | OpenFOAM之殇">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/30/Equation-Discretisation/" class="post-title-link" itemprop="url">Equation Discretisation</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-05-30 10:12:39 / Modified: 15:31:26" itemprop="dateCreated datePublished" datetime="2022-05-30T10:12:39+08:00">2022-05-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="chapter-8-the-diffusion-term">Chapter 8 The Diffusion Term</h2>
+<p>The Laplacian term is integrated over a control volume, then using
+Gauss' theorem, and linearised as follows:</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{V}\nabla \cdot \left(\Gamma\nabla\phi\right)dV =&amp;
+\oint\limits_{S}\left(\Gamma\nabla\phi\right)\cdot
+d\mathbf{S}=\sum\limits_{f \sim \operatorname{faces}\left(V\right)}
+\left(\Gamma\nabla\phi\right)_{f} \cdot \mathbf{S}_f = \sum\limits_{f
+\sim \operatorname{faces}\left(V\right)}
+\left(\Gamma\nabla\phi\right)_{f} \cdot
+\left(\mathbf{E}_f+\mathbf{T}_f\right) \\
+=&amp; \underbrace{\sum\limits_{f \sim
+\operatorname{faces}\left(V\right)} \left(\Gamma\nabla\phi\right)_{f}
+\cdot \mathbf{E}_f}_{Orthogonal \enspace Linearizeable \enspace Part} +
+\underbrace{\sum\limits_{f \sim \operatorname{faces}\left(V\right)}
+\left(\Gamma\nabla\phi\right)_{f} \cdot \mathbf{T}_f}_{Non-Orthogonal
+\enspace Non-Linearizeable \enspace Part} \\
+=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
+\left(\Gamma\nabla\phi\right)_{f} \cdot
+\frac{\left|\mathbf{S}_{f}\right|}{\cos(\theta)}\mathbf{e} +
+\sum\limits_{f \sim \operatorname{faces}\left(V\right)}
+\left(\Gamma\nabla\phi\right)_{f} \cdot
+\underbrace{\left(\mathbf{n}-\frac{1}{\cos(\theta)}\mathbf{e}\right)\left|\mathbf{S}_{f}\right|}_{\mathbf{S}_f-\mathbf{E}_f}
+\\
+=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
+{\Gamma}_f {\left|\mathbf{S}_{f}\right|}\frac{1}{\cos(\theta)}
+\underbrace{\left(\nabla\phi\right)_{f} \cdot \mathbf{e}}_{Orthogonal} +
+\sum\limits_{f \sim \operatorname{faces}\left(V\right)} {\Gamma}_f
+{\left|\mathbf{S}_{f}\right|} \left(\nabla\phi\right)_{f} \cdot
+\left(\mathbf{n}-\frac{1}{\cos(\theta)}\mathbf{e}\right) \\
+=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
+{\Gamma}_f {\left|\mathbf{S}_{f}\right|}\frac{1}{\cos(\theta)}
+\underbrace{\frac{\phi_F-\phi_C}{\left|\mathbf{d}_{CF}\right|}}_{Orthogonal}
++ \sum\limits_{f \sim \operatorname{faces}\left(V\right)} {\Gamma}_f
+{\left|\mathbf{S}_{f}\right|} \left( \underbrace{\nabla\phi}_{(1):grad}
+\right)_{f} \cdot \left(\mathbf{n}-\frac{\left|\mathbf{d}_{CF}\right|
+\mathbf{e}}{\left|\mathbf{d}_{CF}\right| \cos(\theta)}\right) \\
+=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
+{\Gamma}_f
+{\left|\mathbf{S}_{f}\right|}\frac{1}{\left|\mathbf{d}_{CF}\right|
+\cos(\theta)} \left(\phi_F-\phi_C\right) + \sum\limits_{f \sim
+\operatorname{faces}\left(V\right)} {\Gamma}_f
+{\left|\mathbf{S}_{f}\right|}
+\underbrace{\left(\nabla\phi\right)_{f}}_{(2):interpolation} \cdot
+\left(\mathbf{n}-\frac{\mathbf{d}_{CF}}{\mathbf{d}_{CF} \cdot
+\mathbf{n}}\right) \\
+=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
+{\Gamma}_f {\left|\mathbf{S}_{f}\right|}\frac{1}{\mathbf{d}_{CF} \cdot
+\mathbf{n}} \left(\phi_F-\phi_C\right) + \sum\limits_{f \sim
+\operatorname{faces}\left(V\right)} {\Gamma}_f
+{\left|\mathbf{S}_{f}\right|} \underbrace{\left(\nabla\phi\right)_{f}
+\cdot \left(\mathbf{n}-\frac{\mathbf{d}_{CF}}{\mathbf{d}_{CF} \cdot
+\mathbf{n}}\right)}_{(3):inner-product}
+\end{aligned}
+\label{eq8_77}
+\end{equation}
+\]</span></p>
+<figure>
+<img src="/images/figure_zsf/8_12.jpg"
+alt="Fig 1. Decomposing S_f via the over-relaxed approach^1" />
+<figcaption aria-hidden="true"><strong>Fig</strong> 1. Decomposing <span
+class="math inline">\(S_f\)</span> via the over-relaxed approach<span
+class="math inline">\(^1\)</span></figcaption>
+</figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
