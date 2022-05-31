@@ -220,9 +220,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-05-30 10:12:39 / Modified: 15:31:26" itemprop="dateCreated datePublished" datetime="2022-05-30T10:12:39+08:00">2022-05-30</time>
+      <time title="Created: 2022-05-30 10:12:39" itemprop="dateCreated datePublished" datetime="2022-05-30T10:12:39+08:00">2022-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-05-31 20:55:35" itemprop="dateModified" datetime="2022-05-31T20:55:35+08:00">2022-05-31</time>
     </span>
 
   
@@ -238,70 +244,14 @@
           <h2 id="chapter-8-the-diffusion-term">Chapter 8 The Diffusion Term</h2>
 <p>The Laplacian term is integrated over a control volume, then using
 Gauss' theorem, and linearised as follows:</p>
-<p><span class="math display">\[
-\begin{equation}
-\begin{aligned}
-\int\limits_{V}\nabla \cdot \left(\Gamma\nabla\phi\right)dV =&amp;
-\oint\limits_{S}\left(\Gamma\nabla\phi\right)\cdot
-d\mathbf{S}=\sum\limits_{f \sim \operatorname{faces}\left(V\right)}
-\left(\Gamma\nabla\phi\right)_{f} \cdot \mathbf{S}_f = \sum\limits_{f
-\sim \operatorname{faces}\left(V\right)}
-\left(\Gamma\nabla\phi\right)_{f} \cdot
-\left(\mathbf{E}_f+\mathbf{T}_f\right) \\
-=&amp; \underbrace{\sum\limits_{f \sim
-\operatorname{faces}\left(V\right)} \left(\Gamma\nabla\phi\right)_{f}
-\cdot \mathbf{E}_f}_{Orthogonal \enspace Linearizeable \enspace Part} +
-\underbrace{\sum\limits_{f \sim \operatorname{faces}\left(V\right)}
-\left(\Gamma\nabla\phi\right)_{f} \cdot \mathbf{T}_f}_{Non-Orthogonal
-\enspace Non-Linearizeable \enspace Part} \\
-=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
-\left(\Gamma\nabla\phi\right)_{f} \cdot
-\frac{\left|\mathbf{S}_{f}\right|}{\cos(\theta)}\mathbf{e} +
-\sum\limits_{f \sim \operatorname{faces}\left(V\right)}
-\left(\Gamma\nabla\phi\right)_{f} \cdot
-\underbrace{\left(\mathbf{n}-\frac{1}{\cos(\theta)}\mathbf{e}\right)\left|\mathbf{S}_{f}\right|}_{\mathbf{S}_f-\mathbf{E}_f}
-\\
-=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
-{\Gamma}_f {\left|\mathbf{S}_{f}\right|}\frac{1}{\cos(\theta)}
-\underbrace{\left(\nabla\phi\right)_{f} \cdot \mathbf{e}}_{Orthogonal} +
-\sum\limits_{f \sim \operatorname{faces}\left(V\right)} {\Gamma}_f
-{\left|\mathbf{S}_{f}\right|} \left(\nabla\phi\right)_{f} \cdot
-\left(\mathbf{n}-\frac{1}{\cos(\theta)}\mathbf{e}\right) \\
-=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
-{\Gamma}_f {\left|\mathbf{S}_{f}\right|}\frac{1}{\cos(\theta)}
-\underbrace{\frac{\phi_F-\phi_C}{\left|\mathbf{d}_{CF}\right|}}_{Orthogonal}
-+ \sum\limits_{f \sim \operatorname{faces}\left(V\right)} {\Gamma}_f
-{\left|\mathbf{S}_{f}\right|} \left( \underbrace{\nabla\phi}_{(1):grad}
-\right)_{f} \cdot \left(\mathbf{n}-\frac{\left|\mathbf{d}_{CF}\right|
-\mathbf{e}}{\left|\mathbf{d}_{CF}\right| \cos(\theta)}\right) \\
-=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
-{\Gamma}_f
-{\left|\mathbf{S}_{f}\right|}\frac{1}{\left|\mathbf{d}_{CF}\right|
-\cos(\theta)} \left(\phi_F-\phi_C\right) + \sum\limits_{f \sim
-\operatorname{faces}\left(V\right)} {\Gamma}_f
-{\left|\mathbf{S}_{f}\right|}
-\underbrace{\left(\nabla\phi\right)_{f}}_{(2):interpolation} \cdot
-\left(\mathbf{n}-\frac{\mathbf{d}_{CF}}{\mathbf{d}_{CF} \cdot
-\mathbf{n}}\right) \\
-=&amp; \sum\limits_{f \sim \operatorname{faces}\left(V\right)}
-{\Gamma}_f {\left|\mathbf{S}_{f}\right|}\frac{1}{\mathbf{d}_{CF} \cdot
-\mathbf{n}} \left(\phi_F-\phi_C\right) + \sum\limits_{f \sim
-\operatorname{faces}\left(V\right)} {\Gamma}_f
-{\left|\mathbf{S}_{f}\right|} \underbrace{\left(\nabla\phi\right)_{f}
-\cdot \left(\mathbf{n}-\frac{\mathbf{d}_{CF}}{\mathbf{d}_{CF} \cdot
-\mathbf{n}}\right)}_{(3):inner-product}
-\end{aligned}
-\label{eq8_77}
-\end{equation}
-\]</span></p>
-<figure>
-<img src="/images/figure_zsf/8_12.jpg"
-alt="Fig 1. Decomposing S_f via the over-relaxed approach^1" />
-<figcaption aria-hidden="true"><strong>Fig</strong> 1. Decomposing <span
-class="math inline">\(S_f\)</span> via the over-relaxed approach<span
-class="math inline">\(^1\)</span></figcaption>
-</figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/30/Equation-Discretisation/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

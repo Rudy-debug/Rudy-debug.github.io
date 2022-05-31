@@ -20,16 +20,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"rudy-debug.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Chapter 8 The Diffusion Term The Laplacian term is integrated over a control volume, then using Gauss&#39; theorem, and linearised as follows: \[ \begin{equation} \begin{aligned} \int\limits_{V}\nab">
+    <meta name="description" content="Chapter 8 The Diffusion Term The Laplacian term is integrated over a control volume, then using Gauss&#39; theorem, and linearised as follows:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Equation Discretisation">
 <meta property="og:url" content="https://rudy-debug.github.io/2022/05/30/Equation-Discretisation/index.html">
 <meta property="og:site_name" content="OpenFOAM之殇">
-<meta property="og:description" content="Chapter 8 The Diffusion Term The Laplacian term is integrated over a control volume, then using Gauss&#39; theorem, and linearised as follows: \[ \begin{equation} \begin{aligned} \int\limits_{V}\nab">
+<meta property="og:description" content="Chapter 8 The Diffusion Term The Laplacian term is integrated over a control volume, then using Gauss&#39; theorem, and linearised as follows:">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://rudy-debug.github.io/images/figure_zsf/8_12.jpg">
+<meta property="og:image" content="https://rudy-debug.github.io/images/figure_zsf/11_0.jpg">
 <meta property="article:published_time" content="2022-05-30T02:12:39.000Z">
-<meta property="article:modified_time" content="2022-05-30T07:31:26.034Z">
+<meta property="article:modified_time" content="2022-05-31T12:55:35.428Z">
 <meta property="article:author" content="zsf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://rudy-debug.github.io/images/figure_zsf/8_12.jpg">
@@ -117,7 +118,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter-8-the-diffusion-term"><span class="nav-number">1.</span> <span class="nav-text">Chapter 8 The Diffusion Term</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter-8-the-diffusion-term"><span class="nav-number">1.</span> <span class="nav-text">Chapter 8 The Diffusion Term</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter-11-discretization-of-the-convection-term"><span class="nav-number">2.</span> <span class="nav-text">Chapter 11
+Discretization of the Convection Term</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -228,9 +230,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-05-30 10:12:39 / Modified: 15:31:26" itemprop="dateCreated datePublished" datetime="2022-05-30T10:12:39+08:00">2022-05-30</time>
+      <time title="Created: 2022-05-30 10:12:39" itemprop="dateCreated datePublished" datetime="2022-05-30T10:12:39+08:00">2022-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-05-31 20:55:35" itemprop="dateModified" datetime="2022-05-31T20:55:35+08:00">2022-05-31</time>
     </span>
 
   
@@ -246,6 +254,7 @@
         <h2 id="chapter-8-the-diffusion-term">Chapter 8 The Diffusion Term</h2>
 <p>The Laplacian term is integrated over a control volume, then using
 Gauss' theorem, and linearised as follows:</p>
+<span id="more"></span>
 <p><span class="math display">\[
 \begin{equation}
 \begin{aligned}
@@ -309,6 +318,78 @@ alt="Fig 1. Decomposing S_f via the over-relaxed approach^1" />
 class="math inline">\(S_f\)</span> via the over-relaxed approach<span
 class="math inline">\(^1\)</span></figcaption>
 </figure>
+<h2 id="chapter-11-discretization-of-the-convection-term">Chapter 11
+Discretization of the Convection Term</h2>
+<p>The divergence theorem (also known as Gauss’ theorem) implies that
+the net flux of a vector field through a closed surface is equal to the
+total volume of all sources and sinks (i.e., the volume integral of its
+divergence) over the region inside the surface. <strong>The direction of
+the surfaces is shown in Figure 2.</strong></p>
+<p>For a face the owner is the element of lower index and the neighbor
+is the element of higher index. A Boundary face has only an owner. The
+direction of the surface vector associated with any face is oriented
+from owner to neighbor.</p>
+<figure>
+<img src="/images/figure_zsf/11_0.jpg"
+alt="Fig 2. The direction of surface^1" />
+<figcaption aria-hidden="true"><strong>Fig</strong> 2. The direction of
+surface<span class="math inline">\(^1\)</span></figcaption>
+</figure>
+<p><strong>Note: These two definitions of the direction of the surface
+vector contradict each other.</strong></p>
+<p>For the index of interest cell <span class="math inline">\(P\)</span>
+<strong>less than</strong> the index of neighbour cell <span
+class="math inline">\(U\)</span> <strong>(<span
+class="math inline">\(P\)</span> is owner, <span
+class="math inline">\(U\)</span> is neighbor)</strong></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\phi_f = \varpi \phi_P + (1-\varpi)\phi_U
+\end{aligned}
+\label{eq2}  
+\end{equation}
+\]</span></p>
+<p>For the index of interest cell <span class="math inline">\(P\)</span>
+<strong>greater than</strong> the index of neighbour cell <span
+class="math inline">\(L\)</span> <strong>(<span
+class="math inline">\(L\)</span> is owner, <span
+class="math inline">\(P\)</span> is neighbor)</strong></p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\phi_f = (1-\varpi) \phi_P + \varpi \phi_L
+\end{aligned}
+\label{eq3}  
+\end{equation}
+\]</span></p>
+<p>And, let: <span class="math inline">\(\dot{m}_f = (\rho \mathbf{v})_f
+\cdot \mathbf{S}_f\)</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\int\limits_{V_P}\nabla \cdot\left(\rho \mathbf{v} \phi\right)dV =&amp;
+\oint\limits_{S_P}\left(\rho \mathbf{v} \phi\right)\cdot d\mathbf{S}=
+\sum\limits_{f \sim \operatorname{faces}\left(V_P\right)} \left(\rho
+\mathbf{v} \phi\right)_{f}\cdot \mathbf{S}_f = \sum\limits_{f \sim
+\operatorname{faces}\left(V_P\right)} \left(\rho \mathbf{v}
+\right)_{f}\cdot \mathbf{S}_f \phi_f \\
+=&amp; \sum\limits_{f \in L(P)} -\dot{m}_f \phi_f  + \sum\limits_{f \in
+U(P)} \dot{m}_f \phi_f \\
+=&amp; \sum\limits_{f \in L(P)} -\dot{m}_f \underbrace{\left[ (1-\varpi)
+\phi_P + \varpi \phi_L \right]}_{P \enspace is \enspace neighbor}  +
+\sum\limits_{f \in U(P)} \dot{m}_f \underbrace{\left[\varpi \phi_P +
+(1-\varpi)\phi_U \right]}_{P \enspace is \enspace owner} \\
+=&amp; \underbrace{\left( \sum\limits_{f \in L(P)} -\dot{m}_f (1-\varpi)
++ \sum\limits_{f \in U(P)} \dot{m}_f \varpi \right)}_{diag()} \phi_P +
+\sum\limits_{f \in L(P)} \underbrace{-\dot{m}_f \varpi}_{lower()}
+\phi_L  + \sum\limits_{f \in U(P)} \underbrace{\dot{m}_f
+(1-\varpi)}_{upper()}\phi_U
+\end{aligned}
+\label{eq11_0}
+\end{equation}
+\]</span></p>
 
     </div>
 
